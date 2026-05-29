@@ -1,0 +1,1425 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>John Paul — Mechatronics Engineer</title>
+
+        <!-- FONTS: Heavy Industrial Monospace + Geometric Display -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Martian+Mono:wght@300;400;500;600;700;800&family=Archivo+Black&family=Space+Grotesk:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+
+        <style>
+            :root {
+                --bg: #242424;
+                --bg-deep: #1a1a1a;
+                --bg-card: #1e1e1e;
+                --bg-input: #111111;
+                --text-body: #ffffff;
+                --text-heading: #adb3b7;
+                --text-muted: #555555;
+                --text-meta: rgba(173, 179, 183, 0.5);
+                --blue: #0000ee;
+                --orange: #0000ee;
+                --red: #e61919;
+                --border: rgba(255, 255, 255, 0.06);
+                --border-strong: rgba(255, 255, 255, 0.12);
+                --font-display: "Archivo Black","Impact",sans-serif;
+                --font-body: "Martian Mono","Courier New",monospace;
+                --font-mono: "Martian Mono","Courier New",monospace;
+                --font-ui: "Space Grotesk",sans-serif;
+            }
+            *{margin:0;padding:0;box-sizing:border-box}
+            html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+            body{background:var(--bg);color:var(--text-body);font-family:var(--font-body);font-size:14px;line-height:1;letter-spacing:-0.03em;width:100vw;overflow-x:hidden}
+            body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999}
+            a{color:var(--blue);text-decoration:none}
+            a:hover{text-decoration:underline}
+            ::selection{background:var(--orange);color:#fff}
+
+            .btn-hazard{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:repeating-linear-gradient(-45deg,#fff,#fff 8px,#111 8px,#111 16px);color:#fff;font-family:var(--font-mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;border:2px solid #fff;cursor:pointer;transition:transform 120ms;text-decoration:none}
+            .btn-hazard:hover{transform:scale(0.98)}
+            .btn-hazard .btn-label{background:#fff;padding:6px 14px;color:#000;font-weight:800}
+            .btn-outline{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;background:transparent;color:var(--blue);font-family:var(--font-mono);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.1em;border:2px solid var(--blue);cursor:pointer;transition:transform 120ms,background 120ms;text-decoration:none}
+            .btn-outline:hover{background:rgba(0,0,238,0.08);transform:scale(0.98)}
+
+            .divider-thick{height:4px;background:#fff;width:100%;margin:0}
+            .divider-hazard{height:12px;width:100%;background:repeating-linear-gradient(90deg,#fff,#fff 8px,#111 8px,#111 16px);margin:0}
+            .divider-blueprint{height:2px;background:repeating-linear-gradient(90deg,rgba(0,0,238,0.15) 0px,rgba(0,0,238,0.15) 4px,transparent 4px,transparent 8px);margin:40px 0;position:relative}
+
+            section{padding:48px 48px 64px;width:100%}
+            .section-header{margin-bottom:20px}
+            .section-header h2{font-family:var(--font-display);font-size:40px;font-weight:400;text-transform:uppercase;letter-spacing:-2px;color:var(--text-heading);margin:0}
+            .section-subtitle{font-family:var(--font-body);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.2em;margin-top:8px}
+            .section-marker{display:flex;align-items:center;gap:12px;margin-bottom:32px}
+            .section-marker .marker-prefix{font-family:var(--font-mono);font-size:10px;font-weight:600;color:#fff;letter-spacing:0.15em;text-transform:uppercase}
+            .section-marker .marker-line{flex:1;height:1px;background:var(--border-strong)}
+            .section-marker .marker-code{font-family:var(--font-mono);font-size:9px;color:var(--text-muted);letter-spacing:0.1em}
+            .tech-label{display:inline-block;font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:0.15em;padding:4px 8px;border:1px solid var(--border-strong)}
+
+            .hero{padding:64px 48px;display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;width:100%}
+            .hero-content h1{font-family:var(--font-display);font-size:56px;text-transform:uppercase;letter-spacing:-3px;color:var(--text-heading);line-height:0.95;margin-bottom:24px}
+            .hero-content .hero-tagline{font-family:var(--font-mono);font-size:12px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:20px}
+            .hero-content .hero-desc{font-family:var(--font-body);font-size:13px;line-height:1.7;letter-spacing:-0.02em;max-width:520px;margin-bottom:32px}
+            .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+            .hero-visual{display:flex;justify-content:flex-end;align-items:flex-start}
+            .hero-visual img{width:320px;height:auto;border:2px solid var(--border-strong)}
+
+            nav{display:flex;align-items:center;justify-content:space-between;padding:16px 48px;border-bottom:1px solid var(--border)}
+            nav .nav-links{display:flex;gap:20px;font-family:var(--font-mono);font-size:10px;font-weight:500;text-transform:uppercase;letter-spacing:0.1em}
+            nav .nav-links a{color:var(--text-muted);text-decoration:none;transition:color 120ms}
+            nav .nav-links a:hover{color:var(--text-body)}
+            nav .nav-brand{font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-body)}
+
+            /* ============================================================
+               CAREER JOURNEY — GANTT-STYLE TIMELINE
+               ============================================================ */
+            :root{--yr:48px}
+            .career-container{background:var(--bg-card);border-radius:12px;border:1px solid var(--border);padding:20px 0 20px 24px;position:relative}
+            .career-title{font-family:var(--font-ui);font-size:14px;font-weight:700;color:#ddd;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;padding-right:24px}
+
+            .timeline-grid{display:grid;
+              grid-template-columns:40px 10px 16px 14px 1fr;
+              grid-auto-rows:minmax(var(--yr),auto);
+              position:relative;padding-right:20px}
+
+            .year-label{grid-column:1;font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:0.04em;position:relative;display:flex;align-items:flex-start;padding-top:3px;z-index:1}
+            .year-label::after{content:'';position:absolute;left:calc(100% + 6px);right:-2000px;top:0;height:1px;background:rgba(255,255,255,0.04);pointer-events:none}
+            .year-label:last-child::after{height:0}
+
+            .side-projects-bar{grid-column:3;
+              background:repeating-linear-gradient(-45deg,rgba(100,160,70,0.35),rgba(100,160,70,0.35) 3px,rgba(80,130,55,0.25) 3px,rgba(80,130,55,0.25) 6px);
+              border-radius:2px;position:relative;display:flex;align-items:center;justify-content:center;margin:2px 0}
+            .side-projects-label{font-family:var(--font-mono);font-size:7px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.25em;
+              writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;line-height:1.2;padding:6px 0}
+
+            /* JOB CARD */
+            .job-card{border-radius:6px;border:1px solid var(--border);overflow:hidden;
+              grid-column:5;background:var(--bg-deep);
+              transition:border-color 0.3s,box-shadow 0.3s,transform 0.6s cubic-bezier(0.23,1,0.32,1),opacity 0.6s cubic-bezier(0.23,1,0.32,1);
+              opacity:0;transform:translateY(20px);
+              cursor:pointer;z-index:1;position:relative;margin:2px 0}
+            .job-card.is-visible{opacity:1;transform:translateY(0)}
+            .job-card:hover{border-color:var(--border-strong);z-index:2}
+            .job-card.current{border-color:#2563EB;box-shadow:0 0 0 1px rgba(37,99,235,0.12)}
+            .job-card.current:hover{box-shadow:0 0 0 1px rgba(37,99,235,0.25),0 4px 20px rgba(37,99,235,0.08)}
+
+            .job-card-header{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;user-select:none;
+              transition:background 0.25s}
+            .job-card-header:hover{background:rgba(255,255,255,0.015)}
+
+            .job-logo{width:26px;height:26px;object-fit:contain;border-radius:4px;flex-shrink:0}
+
+            .job-info{flex:1;min-width:0}
+            .job-company{font-family:var(--font-ui),sans-serif;font-size:12px;font-weight:700;color:var(--text-body);letter-spacing:-0.15px;line-height:1.2;
+              display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+            .job-company .company-sep{color:var(--text-meta);font-weight:400}
+            .job-company .company-location{color:var(--text-meta);font-weight:400;font-size:10px}
+            .job-role{font-family:var(--font-ui),sans-serif;font-size:9px;font-weight:500;color:var(--text-muted);margin-top:1px;line-height:1.3}
+            .job-dates{font-family:var(--font-mono);font-size:7px;font-weight:500;color:var(--text-meta);text-transform:uppercase;letter-spacing:0.06em;margin-top:1px}
+
+            .job-expand{width:20px;height:20px;border-radius:50%;border:1px solid var(--border-strong);
+              display:flex;align-items:center;justify-content:center;flex-shrink:0;
+              font-family:var(--font-ui);font-size:12px;font-weight:300;color:var(--text-muted);
+              transition:transform 0.3s cubic-bezier(0.23,1,0.32,1),background 0.25s,border-color 0.25s,color 0.25s}
+            .job-card.open .job-expand{transform:rotate(135deg);color:#2563EB;border-color:#2563EB}
+            .job-card.current .job-expand{border-color:rgba(37,99,235,0.3)}
+            .job-card.current.open .job-expand{background:rgba(37,99,235,0.08);color:#3b82f6;border-color:#3b82f6}
+
+            .job-card-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.23,1,0.32,1)}
+            .job-card.open .job-card-body{max-height:2000px;overflow:visible}
+            .job-card-body-inner{padding:0 12px 12px;border-top:1px solid var(--border)}
+
+            .job-description{font-family:var(--font-body);font-size:11px;line-height:1.6;letter-spacing:-0.01em;color:var(--text-body);margin-top:10px;max-width:680px}
+
+            .job-subroles{margin-top:12px;display:flex;flex-direction:column;gap:4px}
+            .job-subrole{display:flex;align-items:flex-start;gap:6px;padding:6px 8px;background:rgba(255,255,255,0.015);border-radius:4px;border-left:2px solid var(--border)}
+            .job-subrole-bullet{width:5px;height:5px;border-radius:50%;background:var(--text-meta);flex-shrink:0;margin-top:4px}
+            .job-subrole-info{flex:1}
+            .job-subrole-title{font-family:var(--font-ui),sans-serif;font-size:11px;font-weight:600;color:#ccc}
+            .job-subrole-date{font-family:var(--font-mono);font-size:8px;font-weight:400;color:var(--text-meta);margin-top:1px}
+
+            .job-highlights{margin-top:12px;display:grid;grid-template-columns:1fr;gap:0}
+            .job-highlight{padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+            .job-highlight:last-child{border-bottom:none}
+            .job-highlight-icon{font-size:12px;flex-shrink:0;margin-top:1px;color:#2563EB;opacity:0.5}
+            .job-highlight-text{font-family:var(--font-ui),sans-serif;font-size:11px;line-height:1.5;color:var(--text-body);letter-spacing:-0.01em}
+            .job-highlight-text strong{color:#fff}
+
+            .job-testimonial{margin-top:12px;padding:10px 12px;background:rgba(37,99,235,0.02);border-radius:6px;border-left:2px solid rgba(37,99,235,0.15)}
+            .job-testimonial-quote{font-family:var(--font-body);font-size:10px;line-height:1.6;font-style:italic;color:var(--text-muted);margin-bottom:6px}
+            .job-testimonial-author{font-family:var(--font-ui),sans-serif;font-size:10px;font-weight:600;color:var(--text-heading)}
+            .job-testimonial-author span{font-weight:400;color:var(--text-meta)}
+
+            .job-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px}
+            .job-tag{font-family:var(--font-mono);font-size:7px;font-weight:600;color:var(--text-muted);padding:2px 6px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.06em;border-radius:2px}
+
+            /* staggered entrance */
+            .job-card[data-stagger="1"].is-visible{transition-delay:0s}
+            .job-card[data-stagger="2"].is-visible{transition-delay:0.06s}
+            .job-card[data-stagger="3"].is-visible{transition-delay:0.12s}
+            .job-card[data-stagger="4"].is-visible{transition-delay:0.18s}
+            .job-card[data-stagger="5"].is-visible{transition-delay:0.24s}
+
+            .story-group{margin-bottom:48px}
+            .story-group-header{display:flex;align-items:baseline;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+            .story-group-header h3{font-family:var(--font-display);font-size:28px;font-weight:400;color:var(--text-heading);text-transform:uppercase;letter-spacing:-1px;margin:0}
+            .group-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;color:#fff;text-transform:uppercase;letter-spacing:0.15em;padding:3px 8px;border:1px solid var(--blue);background:rgba(0,0,238,0.10)}
+            .story-narrative{margin-bottom:20px}
+            .narrative-text{font-family:var(--font-body);font-size:14px;line-height:1.7;letter-spacing:-0.02em;max-width:680px;margin:0 0 16px 0}
+            .story-image-grid{display:flex;gap:8px;margin:20px 0;flex-wrap:wrap}
+            .story-image-grid img{width:200px;height:auto;display:block}
+            .story-card{border-left:2px solid var(--border-strong);padding:16px 0 16px 20px;margin-bottom:20px}
+            .story-card:last-child{margin-bottom:0}
+            .story-quote{font-family:var(--font-body);font-size:13px;line-height:1.7;font-style:italic;margin:0 0 12px 0}
+            .story-card-header-flex{display:flex;align-items:center;gap:12px}
+            .story-author{font-family:var(--font-mono);font-size:10px;font-weight:700;color:var(--text-heading);text-transform:uppercase;letter-spacing:0.08em}
+            .story-role{font-family:var(--font-mono);font-size:9px;font-weight:400;color:var(--text-muted);letter-spacing:0.05em;margin-top:2px}
+            .testimonial-avatar{width:36px;height:36px;object-fit:cover;border-radius:50%;border:1px solid var(--border-strong)}
+            .story-img-wrap{position:relative;overflow:hidden;cursor:pointer;width:200px;border:1px solid var(--border-strong)}
+            .story-img-wrap img{width:100%;height:auto;display:block;transition:filter 0.4s,transform 0.4s}
+            .story-img-caption{position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(0deg,rgba(0,0,0,0.92) 0%,rgba(0,0,0,0.7) 60%,transparent 100%);font-family:var(--font-mono);font-size:9px;font-weight:700;color:#fff;text-transform:uppercase;letter-spacing:0.12em;transform:translateY(100%);transition:transform 0.35s;z-index:2}
+            .story-img-wrap:hover .story-img-caption{transform:translateY(0)}
+            .story-img-wrap:hover img{filter:grayscale(60%) brightness(0.7);transform:scale(1.03)}
+
+            .project-card-body .project-media {
+                margin-bottom: 16px;
+            }
+            .project-card-body .project-img {
+                width: 100%;
+                max-width: 400px;
+                height: auto;
+                border: 1px solid var(--border-strong);
+                display: block;
+            }
+            .project-card-body .project-video {
+                width: 100%;
+                max-width: 400px;
+                height: auto;
+                border: 1px solid var(--border-strong);
+                display: block;
+            }
+            .project-card{background:var(--bg-card);border:1px solid var(--border);margin-bottom:2px;position:relative;transition:border-color 120ms}
+            .project-card:hover{border-color:var(--border-strong)}
+            .project-card-header{display:flex;justify-content:space-between;align-items:center;padding:20px 24px;border-bottom:1px solid var(--border);cursor:pointer}
+            .project-card-header h3{font-family:var(--font-ui);font-size:18px;font-weight:600;color:var(--text-body);letter-spacing:-0.3px;flex:1;margin:0 24px}
+            .project-card-header .project-number{font-family:var(--font-mono);font-size:9px;font-weight:700;color:var(--text-muted);letter-spacing:0.15em}
+            .project-card-header .project-arrow{font-family:var(--font-mono);font-size:14px;color:var(--text-muted);transition:transform 120ms}
+            .project-card.open .project-arrow{transform:rotate(90deg)}
+            .project-card-body{padding:24px;display:none}
+            .project-card.open .project-card-body{display:block}
+            .project-desc{font-family:var(--font-body);font-size:13px;line-height:1.7;margin-bottom:16px;max-width:680px}
+            .project-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+            .project-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);padding:4px 8px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.08em}
+            .key-results-label{font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--blue);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:8px}
+            .key-results-label::before{content:"\u25b8 "}
+            .project-key-results{font-family:var(--font-body);font-size:12px;line-height:1.6;color:var(--text-body);margin-bottom:16px}
+            .project-key-results li{margin-bottom:4px;list-style:none;padding-left:12px;position:relative}
+            .project-key-results li::before{content:"\u2014";position:absolute;left:0;color:var(--blue)}
+
+            .edu-card{padding:16px 0;border-bottom:1px solid var(--border)}
+            .edu-card:last-child{border-bottom:none}
+            .edu-card h3{font-family:var(--font-ui);font-size:18px;font-weight:600;color:var(--text-heading);margin-bottom:4px}
+            .edu-card .edu-school{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-bottom:4px}
+            .edu-card .edu-date{font-family:var(--font-mono);font-size:9px;color:#555;margin-bottom:8px}
+            .edu-card .edu-desc{font-family:var(--font-body);font-size:12px;line-height:1.6;color:var(--text-body)}
+
+            .skills-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
+            .skill-cat h3{font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--text-heading);margin-bottom:12px}
+            .skill-tag{display:inline-block;font-family:var(--font-mono);font-size:9px;color:var(--text-muted);padding:4px 8px;border:1px solid var(--border-strong);margin:3px 3px 0 0;text-transform:uppercase;letter-spacing:0.08em}
+
+            .achieve-card{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)}
+            .achieve-card:last-child{border-bottom:none}
+            .achieve-card .achieve-year{font-family:var(--font-mono);font-size:10px;font-weight:600;color:var(--text-muted);min-width:80px}
+            .achieve-card .achieve-info{flex:1}
+            .achieve-card .achieve-info h4{font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--text-heading);margin-bottom:2px}
+            .achieve-card .achieve-info p{font-family:var(--font-body);font-size:11px;color:var(--text-muted)}
+
+            .beyond-content{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start}
+            .beyond-content p{font-family:var(--font-body);font-size:13px;line-height:1.7;max-width:520px}
+            .beyond-content img{width:100%;max-width:360px;height:auto;border:1px solid var(--border-strong)}
+
+            .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px}
+            .contact-form{display:flex;flex-direction:column;gap:12px}
+            .contact-form input,.contact-form textarea{background:var(--bg-input);border:1px solid var(--border-strong);padding:12px 16px;font-family:var(--font-mono);font-size:12px;color:var(--text-body);outline:none;transition:border-color 120ms}
+            .contact-form input:focus,.contact-form textarea:focus{border-color:var(--blue)}
+            .contact-form textarea{min-height:120px;resize:vertical}
+            .contact-form button{padding:14px 28px;background:var(--blue);color:#fff;border:none;font-family:var(--font-mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;cursor:pointer;transition:background 120ms}
+            .contact-form button:hover{background:#0000cc}
+            .contact-details{display:flex;flex-direction:column;gap:16px}
+            .contact-item{font-family:var(--font-mono);font-size:11px;letter-spacing:0.05em}
+            .contact-item .contact-label{font-size:8px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.15em;margin-bottom:4px}
+
+            footer{padding:24px 48px;border-top:1px solid var(--border);font-family:var(--font-mono);font-size:9px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.12em;display:flex;justify-content:space-between;align-items:center}
+
+            @media(max-width:900px){
+                .hero{grid-template-columns:1fr}
+                .hero-visual{justify-content:flex-start;margin-top:24px}
+                .skills-grid{grid-template-columns:1fr 1fr}
+                .beyond-content{grid-template-columns:1fr}
+                .contact-grid{grid-template-columns:1fr}
+            }
+            @media(max-width:768px){
+                :root{--yr:36px}
+                section{padding:32px 24px}
+                nav{padding:12px 24px;flex-direction:column;gap:8px}
+                .hero{padding:40px 24px}
+                .hero-content h1{font-size:36px}
+                .section-header h2{font-size:28px}
+                .career-container{padding:16px 0 16px 16px}
+                .timeline-grid{grid-template-columns:32px 8px 12px 10px 1fr;padding-right:12px}
+                .job-card-header{padding:6px 10px;gap:6px}
+                .job-logo{width:22px;height:22px}
+                .job-company{font-size:11px}
+                .job-role{font-size:8px}
+                .job-dates{font-size:6px}
+                .job-expand{width:18px;height:18px;font-size:10px}
+                .job-card-body-inner{padding:0 10px 10px}
+                .job-description{font-size:10px}
+                .year-label{font-size:7px;padding-top:2px}
+                .side-projects-label{font-size:6px;letter-spacing:0.15em}
+                .job-card{grid-column:5}
+                .story-image-grid img,.story-img-wrap{width:140px}
+                .story-group-header{flex-direction:column;gap:6px}
+                footer{padding:16px 24px;flex-direction:column;gap:8px}
+            }
+        
+            /* ============================================================
+               SCROLLYTELLING
+               ============================================================ */
+            /* ============================================================
+               STORIES — STACKED SCROLLYTELLING
+               ============================================================ */
+            .scrolly-stack{display:flex;flex-direction:column;gap:10px;width:100%}
+
+            .scrolly-card{background:var(--bg-card);border:1px solid var(--border);
+              border-left:3px solid var(--border);border-radius:8px;overflow:hidden;
+              transition:border-color 0.5s,box-shadow 0.5s,background 0.5s;
+              opacity:0;transform:translateY(24px);
+              transition:opacity 0.6s cubic-bezier(0.23,1,0.32,1),
+                         transform 0.6s cubic-bezier(0.23,1,0.32,1),
+                         border-color 0.5s,box-shadow 0.5s,background 0.5s}
+            .scrolly-card.is-visible{opacity:1;transform:translateY(0)}
+            .scrolly-card.is-visible.active{border-left-color:var(--blue);
+              background:rgba(0,0,238,0.015);
+              box-shadow:0 0 0 1px rgba(0,0,238,0.06)}
+            .scrolly-card[data-stagger="0"].is-visible{transition-delay:0s}
+            .scrolly-card[data-stagger="1"].is-visible{transition-delay:0.08s}
+
+            .scrolly-card-inner{padding:18px 20px}
+
+            .scrolly-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+            .scrolly-head-marker{width:12px;height:12px;border-radius:50%;
+              border:2px solid var(--border-strong);flex-shrink:0;
+              transition:background 0.4s,border-color 0.4s}
+            .scrolly-card.is-visible.active .scrolly-head-marker{background:var(--blue);border-color:var(--blue)}
+            .scrolly-head-info{flex:1;min-width:0}
+            .scrolly-head-company{font-family:var(--font-ui),sans-serif;font-size:13px;font-weight:700;color:var(--text-body);
+              letter-spacing:-0.15px;line-height:1.3}
+            .scrolly-head-meta{display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:1px}
+            .scrolly-head-role{font-family:var(--font-mono);font-size:8px;font-weight:600;color:#fff;
+              text-transform:uppercase;letter-spacing:0.13em;padding:2px 6px;border:1px solid var(--blue);
+              background:rgba(0,0,238,0.10);border-radius:2px}
+            .scrolly-head-dates{font-family:var(--font-mono);font-size:8px;font-weight:500;color:var(--text-meta);
+              letter-spacing:0.06em}
+
+            .scrolly-body{display:grid;grid-template-columns:1fr;gap:10px}
+            .scrolly-body > *{opacity:0;transform:translateY(12px);
+              transition:opacity 0.5s cubic-bezier(0.23,1,0.32,1),
+                         transform 0.5s cubic-bezier(0.23,1,0.32,1)}
+            .scrolly-card.is-visible.active .scrolly-body > *{opacity:1;transform:translateY(0)}
+
+            .scrolly-quote{position:relative;padding:8px 0 4px 18px;border-left:2px solid rgba(0,0,238,0.2);
+              transition-delay:0.1s}
+            .scrolly-quote-text{font-family:var(--font-body);font-size:12px;line-height:1.65;
+              letter-spacing:-0.01em;font-style:italic;color:var(--text-body)}
+            .scrolly-quote-icon{position:absolute;top:-2px;left:2px;font-family:var(--font-display);
+              font-size:28px;color:var(--blue);opacity:0.12;line-height:1;pointer-events:none}
+
+            .scrolly-imgs{display:flex;gap:6px;flex-wrap:wrap;transition-delay:0.2s}
+            .scrolly-img-item{position:relative;overflow:hidden;border:1px solid var(--border-strong);
+              width:160px;border-radius:4px;cursor:pointer;transition:border-color 0.3s}
+            .scrolly-img-item:hover{border-color:var(--blue)}
+            .scrolly-img-item img{width:100%;height:100px;object-fit:cover;display:block;
+              transition:filter 0.35s,transform 0.35s}
+            .scrolly-img-item:hover img{filter:grayscale(40%) brightness(0.7);transform:scale(1.04)}
+            .scrolly-img-caption{position:absolute;bottom:0;left:0;right:0;padding:5px 8px;
+              background:linear-gradient(0deg,rgba(0,0,0,0.93) 0%,rgba(0,0,0,0.6) 60%,transparent 100%);
+              font-family:var(--font-mono);font-size:7px;font-weight:700;color:#fff;
+              text-transform:uppercase;letter-spacing:0.1em;transform:translateY(100%);
+              transition:transform 0.3s;z-index:2;pointer-events:none}
+            .scrolly-img-item:hover .scrolly-img-caption{transform:translateY(0)}
+
+            .scrolly-testis{display:flex;flex-direction:column;gap:8px;transition-delay:0.3s}
+            .scrolly-testi{padding:10px 0 10px 16px;border-left:2px solid var(--border-strong);
+              transition:border-color 0.35s}
+            .scrolly-testi:hover{border-left-color:var(--blue)}
+            .scrolly-testi-quote{font-family:var(--font-body);font-size:11px;line-height:1.55;
+              font-style:italic;color:var(--text-muted);margin:0 0 8px 0}
+            .scrolly-testi-author{display:flex;align-items:center;gap:8px}
+            .scrolly-testi-avatar{width:28px;height:28px;object-fit:cover;border-radius:50%;
+              border:1px solid var(--border-strong);flex-shrink:0}
+            .scrolly-testi-name{font-family:var(--font-mono);font-size:9px;font-weight:700;
+              color:var(--text-heading);text-transform:uppercase;letter-spacing:0.07em}
+            .scrolly-testi-role{font-family:var(--font-mono);font-size:8px;font-weight:400;
+              color:var(--text-muted);letter-spacing:0.04em;margin-top:1px}
+
+            @media(max-width:768px){
+                .scrolly-card-inner{padding:14px 14px}
+                .scrolly-head{flex-wrap:wrap;gap:6px}
+                .scrolly-head-company{font-size:12px}
+                .scrolly-quote-text{font-size:11px}
+                .scrolly-imgs{gap:4px}
+                .scrolly-img-item{width:100%;max-width:200px}
+                .scrolly-img-item img{height:80px}
+                .scrolly-testi-quote{font-size:10px}
+                .scrolly-testi{padding-left:12px}
+            }
+</style>
+    </head>
+    <body>
+
+        <!-- TICKER -->
+        <div class="ticker">
+            <div class="ticker-track">
+                <span class="ticker-item"><span class="ticker-dot"></span> HARDWARE DESIGN // MECHATRONICS // ROBOTICS</span>
+                <span class="ticker-item"><span class="ticker-dot"></span> HUMANOID SYSTEMS // ACTUATION INTEGRATION // CAD</span>
+                <span class="ticker-item"><span class="ticker-dot"></span> DEXTEROUS MANIPULATION // RAPID PROTOTYPING // EMBEDDED</span>
+                <span class="ticker-item"><span class="ticker-dot"></span> HARDWARE DESIGN // MECHATRONICS // ROBOTICS</span>
+                <span class="ticker-item"><span class="ticker-dot"></span> HUMANOID SYSTEMS // ACTUATION INTEGRATION // CAD</span>
+                <span class="ticker-item"><span class="ticker-dot"></span> DEXTEROUS MANIPULATION // RAPID PROTOTYPING // EMBEDDED</span>
+            </div>
+        </div>
+
+        <!-- NAVIGATION -->
+        <nav>
+            <div class="nav-brand">[ JP // MECHATRONICS ]</div>
+            <div class="nav-links">
+                <a href="#experience">Experience</a>
+                <a href="#stories">Stories</a>
+                <a href="#projects">Projects</a>
+                <a href="#education">Education</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+            </div>
+        </nav>
+
+        <!-- HERO -->
+        <section class="hero" id="about">
+            <div class="hero-content">
+                <div class="hero-tagline">/// ROBOTICS & MECHATRONICS ENGINEER</div>
+                <h1>Hi there,<br />I'm John Paul</h1>
+                <p class="hero-desc">
+                    I am a Robotics and Mechatronics Engineer with 5+ years of industrial experience,
+                    specializing in robotic hardware development, humanoid systems, and intelligent mechanical design.
+                    My work focuses on building innovative robotic solutions by integrating mechanical engineering,
+                    electronics, and intelligent control systems, with expertise in end-to-end product development
+                    from concept design and prototyping to system integration, testing, and deployment for real-world applications.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn-hazard"><span class="btn-label">View Projects</span></a>
+                    <a href="John_Paul_CV.pdf" class="btn-outline" download>Download CV</a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="herosection-pfp.png" alt="John Paul" />
+            </div>
+        </section>
+
+        <div class="divider-thick"></div>
+
+        <!-- EXPERIENCE -->
+        <section class="section" id="experience">
+            <div class="section-header">
+                <h2>Experience</h2>
+                <div class="section-subtitle">Professional Journey</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// PROFESSIONAL EXPERIENCE</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">7 ROLES // ROBOTICS + AUTOMOTIVE + MARINE</span>
+            </div>
+
+            <div class="career-container">
+                <div class="career-title">CAREER JOURNEY</div>
+
+                <div class="timeline-grid">
+
+                    <!-- ===== YEAR LABELS ===== -->
+                    <div class="year-label" style="grid-row:1">2027</div>
+                    <div class="year-label" style="grid-row:2">2026</div>
+                    <div class="year-label" style="grid-row:3">2025</div>
+                    <div class="year-label" style="grid-row:4">2024</div>
+                    <div class="year-label" style="grid-row:5">2023</div>
+                    <div class="year-label" style="grid-row:6">2022</div>
+                    <div class="year-label" style="grid-row:7">2021</div>
+                    <div class="year-label" style="grid-row:8">2020</div>
+                    <div class="year-label" style="grid-row:9">2019</div>
+                    <div class="year-label" style="grid-row:10">2018</div>
+                    <div class="year-label" style="grid-row:11">2017</div>
+                    <div class="year-label" style="grid-row:12">2016</div>
+
+                    <!-- ===== SIDE PROJECTS BAR ===== -->
+                    <div class="side-projects-bar" style="grid-row:3 / 13">
+                        <span class="side-projects-label">Side Projects</span>
+                    </div>
+
+                    <!-- ===== NEURA ROBOTICS (2024-Present)  grid-row: 1 / 5 ===== -->
+                    <div class="job-card current" style="grid-row:1 / 5" id="job-neura" data-stagger="1">
+                        <div class="job-card-header">
+                            <img src="neurarobotics-logo.jpeg" alt="Neura Robotics" class="job-logo" />
+                            <div class="job-info">
+                                <div class="job-company">Neura Robotics <span class="company-sep">·</span> <span class="company-location">Germany</span></div>
+                                <div class="job-role">Humanoid Development Engineer</div>
+                                <div class="job-dates">Aug 2024 – Present</div>
+                            </div>
+                            <span class="job-expand">+</span>
+                        </div>
+                        <div class="job-card-body">
+                            <div class="job-card-body-inner">
+                                <div class="job-description">
+                                    Leading humanoid robot development at Neura Robotics, focusing on
+                                    end-to-end mechanical design, actuation integration, and rapid prototyping
+                                    for the 4NE-1 humanoid platform. Driving hardware innovations from concept
+                                    through production-grade builds.
+                                </div>
+                                <div class="job-subroles">
+                                    <div class="job-subrole">
+                                        <span class="job-subrole-bullet"></span>
+                                        <div class="job-subrole-info">
+                                            <div class="job-subrole-title">Mechatronics Engineer Intern</div>
+                                            <div class="job-subrole-date">Feb – Aug 2024</div>
+                                        </div>
+                                    </div>
+                                    <div class="job-subrole">
+                                        <span class="job-subrole-bullet"></span>
+                                        <div class="job-subrole-info">
+                                            <div class="job-subrole-title">Robotics QA &amp; EoL Testing Engineer</div>
+                                            <div class="job-subrole-date">Oct 2023 – Feb 2024</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="job-highlights">
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Designed and prototyped an <strong>11-DOF humanoid hand</strong> for the 4NE-1 platform</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Completed <strong>3 rapid design iterations</strong> within 2-month sprint cycles for advanced hand mechanics</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Optimized components for <strong>cost-to-performance</strong>, exceeding competitor functional specs at reduced production cost</span>
+                                    </div>
+                                </div>
+                                <div class="job-testimonial">
+                                    <div class="job-testimonial-quote">
+                                        "I count myself lucky to have had John Paul on my team. Beyond his undeniable skills in robotic prototyping, John brought an energy and a level of insight that fundamentally improved systems he was working on."
+                                    </div>
+                                    <div class="job-testimonial-author">
+                                        Dr. Sugeeth Gopinathan <span>— VP Project &amp; Product Management, Co-Founder @ NEURA Robotics</span>
+                                    </div>
+                                </div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Humanoid Robotics</span>
+                                    <span class="job-tag">Mechanical Design</span>
+                                    <span class="job-tag">CAD (Creo)</span>
+                                    <span class="job-tag">Rapid Prototyping</span>
+                                    <span class="job-tag">Actuation Integration</span>
+                                    <span class="job-tag">EoL Testing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== NAVVIS GMBH (2022-2023)  grid-row: 5 / 7 ===== -->
+                    <div class="job-card" style="grid-row:5 / 7" id="job-navvis" data-stagger="2">
+                        <div class="job-card-header">
+                            <img src="navvis gmbh logo.jpg" alt="NavVis GmbH" class="job-logo" />
+                            <div class="job-info">
+                                <div class="job-company">NavVis GmbH <span class="company-sep">·</span> <span class="company-location">Germany</span></div>
+                                <div class="job-role">Assembly &amp; Calibration Technician</div>
+                                <div class="job-dates">Aug 2022 – Sep 2023</div>
+                            </div>
+                            <span class="job-expand">+</span>
+                        </div>
+                        <div class="job-card-body">
+                            <div class="job-card-body-inner">
+                                <div class="job-description">
+                                    Assembled and calibrated LiDAR scanning systems at NavVis in Munich —
+                                    my first role in Germany. Gained deep hands-on experience with precision
+                                    hardware assembly, optical alignment, and systematic quality verification
+                                    for industrial mobile mapping platforms.
+                                </div>
+                                <div class="job-highlights">
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Assembled and calibrated <strong>high-precision LiDAR scanners</strong> for the NavVis VLX platform</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Performed <strong>End-of-Line validation</strong> ensuring all units met optical and mechanical tolerances</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Collaborated with production engineering to <strong>optimize assembly workflows</strong></span>
+                                    </div>
+                                </div>
+                                <div class="job-testimonial">
+                                    <div class="job-testimonial-quote">
+                                        "John possesses outstanding electronic skills that impressed me from his interview day. More than just his technical skills, he is a friendly and approachable colleague who adds positivity to any team."
+                                    </div>
+                                    <div class="job-testimonial-author">
+                                        Joana Ferreira <span>— Industrial &amp; Production Engineer @ NavVis</span>
+                                    </div>
+                                </div>
+                                <div class="job-tags">
+                                    <span class="job-tag">LiDAR Assembly</span>
+                                    <span class="job-tag">Optical Calibration</span>
+                                    <span class="job-tag">Hardware Testing</span>
+                                    <span class="job-tag">Quality Assurance</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== NAVIDIUM INDIA (2019-2021)  grid-row: 7 / 10 ===== -->
+                    <div class="job-card" style="grid-row:7 / 10" id="job-navidium" data-stagger="3">
+                        <div class="job-card-header">
+                            <img src="navidium india logo.webp" alt="Navidium India" class="job-logo" />
+                            <div class="job-info">
+                                <div class="job-company">Navidium India <span class="company-sep">·</span> <span class="company-location">India</span></div>
+                                <div class="job-role">Marine IoT Implementation Engineer</div>
+                                <div class="job-dates">Nov 2019 – Nov 2021</div>
+                            </div>
+                            <span class="job-expand">+</span>
+                        </div>
+                        <div class="job-card-body">
+                            <div class="job-card-body-inner">
+                                <div class="job-description">
+                                    Implemented IoT telemetry systems for marine vessels, enabling real-time
+                                    monitoring of engine performance, fuel consumption, and navigation data
+                                    across a fleet of commercial ships.
+                                </div>
+                                <div class="job-highlights">
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Deployed <strong>IoT sensor networks</strong> on 20+ commercial vessels for real-time data acquisition</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Built dashboards for <strong>engine performance &amp; fuel monitoring</strong>, reducing operational costs</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Integrated <strong>GPS, engine sensors, and communication modules</strong> into unified telemetry architecture</span>
+                                    </div>
+                                </div>
+                                <div class="job-tags">
+                                    <span class="job-tag">IoT</span>
+                                    <span class="job-tag">Marine Systems</span>
+                                    <span class="job-tag">Sensor Integration</span>
+                                    <span class="job-tag">Telemetry</span>
+                                    <span class="job-tag">Embedded Systems</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== MERCEDES-BENZ (2018)  grid-row: 10 / 11 ===== -->
+                    <div class="job-card" style="grid-row:10 / 11" id="job-mercedes" data-stagger="4">
+                        <div class="job-card-header">
+                            <img src="mercedes logo.png" alt="Mercedes-Benz" class="job-logo" />
+                            <div class="job-info">
+                                <div class="job-company">Mercedes-Benz <span class="company-sep">·</span> <span class="company-location">Germany</span></div>
+                                <div class="job-role">Automotive Engineering Intern</div>
+                                <div class="job-dates">Jul 2018</div>
+                            </div>
+                            <span class="job-expand">+</span>
+                        </div>
+                        <div class="job-card-body">
+                            <div class="job-card-body-inner">
+                                <div class="job-description">
+                                    Automotive engineering internship at Mercedes-Benz, gaining exposure
+                                    to vehicle systems engineering, production processes, and quality
+                                    standards in one of the world's leading automotive manufacturers.
+                                </div>
+                                <div class="job-highlights">
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Supported <strong>vehicle systems engineering</strong> and production process optimization</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Gained hands-on experience with <strong>automotive quality standards and testing</strong></span>
+                                    </div>
+                                </div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Automotive Engineering</span>
+                                    <span class="job-tag">Vehicle Systems</span>
+                                    <span class="job-tag">Production</span>
+                                    <span class="job-tag">Quality</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- ===== KELTRON (2016)  grid-row: 12 / 13 ===== -->
+                    <div class="job-card" style="grid-row:12 / 13" id="job-keltron" data-stagger="5">
+                        <div class="job-card-header">
+                            <img src="keltron logo.webp" alt="KELTRON" class="job-logo" />
+                            <div class="job-info">
+                                <div class="job-company">KELTRON <span class="company-sep">·</span> <span class="company-location">India</span></div>
+                                <div class="job-role">Electronics Engineering Intern</div>
+                                <div class="job-dates">Jul 2016</div>
+                            </div>
+                            <span class="job-expand">+</span>
+                        </div>
+                        <div class="job-card-body">
+                            <div class="job-card-body-inner">
+                                <div class="job-description">
+                                    Electronics engineering internship at KELTRON (Kerala State Electronics
+                                    Development Corporation), working on electronics manufacturing, PCB
+                                    assembly, and embedded system testing.
+                                </div>
+                                <div class="job-highlights">
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Assisted in <strong>PCB assembly and electronics manufacturing</strong> processes</span>
+                                    </div>
+                                    <div class="job-highlight">
+                                        <span class="job-highlight-icon">▸</span>
+                                        <span class="job-highlight-text">Performed <strong>embedded system testing</strong> and quality verification</span>
+                                    </div>
+                                </div>
+                                <div class="job-tags">
+                                    <span class="job-tag">Electronics</span>
+                                    <span class="job-tag">PCB Assembly</span>
+                                    <span class="job-tag">Embedded Systems</span>
+                                    <span class="job-tag">Testing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div><!-- /timeline-grid -->
+            </div><!-- /career-container -->
+        </section>
+
+        <div class="divider-thick"></div>
+
+        <!-- STORIES -->
+        <section class="section" id="stories">
+            <div class="section-header">
+                <h2>Stories</h2>
+                <div class="section-subtitle">Work Stories</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// WORK STORIES</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">MOMENTS, PROJECTS, EXPERIENCES</span>
+            </div>
+
+            <div class="scrolly-stack">
+
+                <!-- STORY CARD 1: NEURA ROBOTICS -->
+                <div class="scrolly-card" id="story-neura" data-stagger="0">
+                    <div class="scrolly-card-inner">
+                        <div class="scrolly-head">
+                            <span class="scrolly-head-marker"></span>
+                            <div class="scrolly-head-info">
+                                <div class="scrolly-head-company">Neura Robotics</div>
+                                <div class="scrolly-head-meta">
+                                    <span class="scrolly-head-role">Humanoid Development Engineer</span>
+                                    <span class="scrolly-head-dates">2023 – Present</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scrolly-body">
+                            <div class="scrolly-quote">
+                                <span class="scrolly-quote-icon">"</span>
+                                <p class="scrolly-quote-text">
+                                    I didn't choose robotics. It chose me somewhere around
+                                    age 8, watching a movie I can't even remember the name
+                                    of. Twenty years later I'm standing next to a humanoid
+                                    robot I helped build, in a country I moved to alone, at
+                                    a company doing things that didn't exist when I was a
+                                    kid dreaming about them. NEURA was two and half years of
+                                    hard work, great people, and a quiet reminder that some
+                                    childhood obsessions are worth chasing all the way to
+                                    Germany.
+                                </p>
+                            </div>
+
+                            <div class="scrolly-imgs">
+                                <div class="scrolly-img-item">
+                                    <img src="chilling with the humanoid.jpeg" alt="Chilling with the humanoid" />
+                                    <span class="scrolly-img-caption">Chilling with the humanoid</span>
+                                </div>
+                                <div class="scrolly-img-item">
+                                    <img src="with the 4ne 1 humanoid robot.jpeg" alt="With the 4NE-1 humanoid robot" />
+                                    <span class="scrolly-img-caption">With the 4NE-1 humanoid robot</span>
+                                </div>
+                                <div class="scrolly-img-item">
+                                    <img src="neura christmas party 2025.jpeg" alt="Neura Christmas Party 2025" />
+                                    <span class="scrolly-img-caption">Neura Christmas Party 2025</span>
+                                </div>
+                            </div>
+
+                            <div class="scrolly-testis">
+                                <div class="scrolly-testi">
+                                    <p class="scrolly-testi-quote">
+                                        "I count myself lucky to have had John Paul on my team.
+                                        Beyond his undeniable skills in robotic prototyping,
+                                        John brought an energy and a level of insight that
+                                        fundamentally improved systems he was working on. He has
+                                        a unique ability to take a vision and turn it into a
+                                        reality with minimal oversight and maximum creativity,
+                                        as he is a proactive thinker who anticipates needs
+                                        before they are even voiced. Any leader looking for a
+                                        high-impact, high-integrity professional would be
+                                        fortunate to have John on their side."
+                                    </p>
+                                    <div class="scrolly-testi-author">
+                                        <img src="sugeeth-gopinathan-EeqLJgtd.jpeg" alt="Dr. Sugeeth Gopinathan" class="scrolly-testi-avatar" />
+                                        <div>
+                                            <div class="scrolly-testi-name">Dr. Sugeeth Gopinathan</div>
+                                            <div class="scrolly-testi-role">VP of Project &amp; Product Management, Co-Founder @ NEURA Robotics</div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="scrolly-testi">
+                                    <p class="scrolly-testi-quote">
+                                        "As VP of Advanced Development, I managed John Paul's
+                                        work as a Humanoid Mechanical Engineer over a six-month
+                                        period. His work exclusively targeted advanced hand
+                                        mechanics. Core Competencies Demonstrated: Rapid
+                                        Prototyping &mdash; Executed complete mechanical hand design
+                                        iterations within strict two-month timelines.
+                                        Cost-to-Performance Optimization &mdash; Engineered components
+                                        to minimize production costs while exceeding the
+                                        functional performance of competitor models. Competitive
+                                        Engineering &mdash; Successfully adapted and improved upon
+                                        complex design patterns utilized by major robotics
+                                        manufacturers. Target Execution &mdash; Delivers
+                                        high-efficiency output when provided with defined
+                                        project parameters and structured goals."
+                                    </p>
+                                    <div class="scrolly-testi-author">
+                                        <img src="mavarick-ho-C9CU3KCj.jpeg" alt="Mavarick Ho" class="scrolly-testi-avatar" />
+                                        <div>
+                                            <div class="scrolly-testi-name">Mavarick Ho</div>
+                                            <div class="scrolly-testi-role">VP of Advanced Development, Co-Founder @ NEURA Robotics</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- STORY CARD 2: NAVVIS GMBH -->
+                <div class="scrolly-card" id="story-navvis" data-stagger="1">
+                    <div class="scrolly-card-inner">
+                        <div class="scrolly-head">
+                            <span class="scrolly-head-marker"></span>
+                            <div class="scrolly-head-info">
+                                <div class="scrolly-head-company">NavVis GmbH</div>
+                                <div class="scrolly-head-meta">
+                                    <span class="scrolly-head-role">Assembly Technician</span>
+                                    <span class="scrolly-head-dates">2022 – 2023</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="scrolly-body">
+                            <div class="scrolly-quote">
+                                <span class="scrolly-quote-icon">"</span>
+                                <p class="scrolly-quote-text">
+                                    My first job in Germany. New country, new language, new
+                                    everything and somehow I ended up assembling LiDAR
+                                    scanners in Munich with a team that made it all feel
+                                    easy. NavVis was never part of the grand plan. But it
+                                    taught me how real hardware gets built carefully,
+                                    precisely, and with a lot of patience. Lessons I carried
+                                    into everything after.
+                                </p>
+                            </div>
+
+                            <div class="scrolly-imgs">
+                                <div class="scrolly-img-item">
+                                    <img src="navvis halloween party.jpeg" alt="NavVis Halloween Party" />
+                                    <span class="scrolly-img-caption">NavVis Halloween Party</span>
+                                </div>
+                                <div class="scrolly-img-item">
+                                    <img src="with the navvis vlx scanner.jpeg" alt="With the NavVis VLX scanner" />
+                                    <span class="scrolly-img-caption">With the NavVis VLX scanner</span>
+                                </div>
+                            </div>
+
+                            <div class="scrolly-testis">
+                                <div class="scrolly-testi">
+                                    <p class="scrolly-testi-quote">
+                                        "John possesses outstanding electronic skills that
+                                        impressed me from his interview day. More than just his
+                                        technical skills, he is a friendly and approachable
+                                        colleague who adds positivity to any team. I'm confident
+                                        that John has a bright future ahead."
+                                    </p>
+                                    <div class="scrolly-testi-author">
+                                        <img src="joana-ferreira-2TNos5hf.jpeg" alt="Joana Ferreira" class="scrolly-testi-avatar" />
+                                        <div>
+                                            <div class="scrolly-testi-name">Joana Ferreira</div>
+                                            <div class="scrolly-testi-role">Industrial &amp; Production Engineer @ NavVis</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+        <div class="divider-hazard"></div>
+
+        <!-- PROJECTS -->
+        <section class="section" id="projects">
+            <div class="section-header">
+                <h2>Projects</h2>
+                <div class="section-subtitle">Project Portfolio</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// PROJECT PORTFOLIO</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">7 PROJECTS // MECHANICAL + ELECTRONICS + SOFTWARE</span>
+            </div>
+
+            <div class="project-card open" id="proj-guigui">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[01]</span>
+                    <h3>GUIGUI</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <div class="project-media">
+                        <img src="guigui image.png" alt="GUIGUI Vision-Based Tactile Hand" class="project-img" />
+                    </div>
+                    <p class="project-desc">
+                        <strong>Vision-Based Tactile Robotic Hand with Real-Time Grasp Planning</strong><br />
+                        Independently designed and built an end-to-end robotic hand for adaptive grasping,
+                        combining vision-based tactile sensing and ML-based grasp planning to detect contact
+                        and adjust grasps in real time.
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Achieved 90 N gripping force</li>
+                        <li>Improved grasp adaptability by ~30% across 6+ object types</li>
+                        <li>Delivered 3 prototype iterations in 2 months with hardware cost under &euro;2,000</li>
+                        <li>Self designed Interactive GUI with real time feedback</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Mechanical Design</span>
+                        <span class="project-tag">PTC Creo Parametric</span>
+                        <span class="project-tag">SolidWorks</span>
+                        <span class="project-tag">Actuation Integration</span>
+                        <span class="project-tag">Rapid Prototyping</span>
+                        <span class="project-tag">3D Printing</span>
+                        <span class="project-tag">Sensor Integration</span>
+                        <span class="project-tag">Embedded Vision</span>
+                        <span class="project-tag">GUI Development</span>
+                        <span class="project-tag">Robotic System Integration</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" id="proj-22dof">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[02]</span>
+                    <h3>22-DOF Humanoid Hand with Real-Time Gesture Mimicking</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        Developed a 22-DOF tendon-driven humanoid hand capable of mimicking human hand gestures
+                        in real time using a Raspberry Pi 5 and wrist-mounted camera.
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Delivered a standalone humanoid hand system for real-time gesture mimicry</li>
+                        <li>Combined embedded vision, gesture tracking, and robotic hand actuation</li>
+                        <li>Demonstrated responsive hand-motion replication for interactive demos</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Mechanical Design</span>
+                        <span class="project-tag">Tendon-Driven Mechanisms</span>
+                        <span class="project-tag">Raspberry Pi</span>
+                        <span class="project-tag">Arduino</span>
+                        <span class="project-tag">MediaPipe</span>
+                        <span class="project-tag">Computer Vision</span>
+                        <span class="project-tag">Python</span>
+                        <span class="project-tag">3D Printing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" id="proj-11dof">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[03]</span>
+                    <h3>11-DOF Humanoid Robotic Hand for 4NE-1</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <div class="project-media">
+                        <img src="11-dof image.png" alt="11-DOF Humanoid Hand" class="project-img" />
+                    </div>
+                    <p class="project-desc">
+                        Master's thesis at Neura Robotics: end-to-end design, CAD development,
+                        and prototyping of a fully articulated 11-DOF robotic hand for the 4NE-1 humanoid.
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Delivered a functional 11-DOF robotic hand prototype for humanoid applications</li>
+                        <li>Achieved compact palm-integrated actuation with 11 linear actuators at 1:1 scale</li>
+                        <li>Enabled dexterous grasping and manipulation for the 4NE-1 humanoid platform</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">PTC Creo Parametric</span>
+                        <span class="project-tag">CAD Development</span>
+                        <span class="project-tag">Humanoid Hand Design</span>
+                        <span class="project-tag">Rapid Prototyping</span>
+                        <span class="project-tag">3D Printing</span>
+                        <span class="project-tag">Humanoid Robotics</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" id="proj-myoelectric">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[04]</span>
+                    <h3>Myoelectric Bionic Arm</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        Bachelor's thesis: design and prototyping of a 3D-printed EMG-controlled prosthetic arm
+                        for lower-arm amputees, combining bio-mechatronic design and Arduino-based control.
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Delivered a functional EMG-controlled prosthetic arm prototype</li>
+                        <li>Reduced cost by ~70% compared to commercially available prosthetic hands</li>
+                        <li>Received the Best Bachelor's Project Award</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Prosthetics Design</span>
+                        <span class="project-tag">Bio-Mechatronics</span>
+                        <span class="project-tag">EMG Signal Processing</span>
+                        <span class="project-tag">Arduino</span>
+                        <span class="project-tag">3D Printing</span>
+                        <span class="project-tag">Embedded Systems</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" id="proj-multi">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[05]</span>
+                    <h3>Multi-Terrain Mobile Robot with Traction-Assisted Manipulator</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        Built a 4-wheel mobile robot capable of climbing steep 80&deg; inclined
+                        ramps using a custom manipulator mechanism. First Prize at national level
+                        in a Roborave International competition.
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Climbing capability on ramps up to 80&deg; inclination</li>
+                        <li>Traction-assisted terrain climbing via custom manipulator</li>
+                        <li>First Prize at National Level &mdash; Roborave International</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Mobile Robotics</span>
+                        <span class="project-tag">Manipulator Integration</span>
+                        <span class="project-tag">Robot Prototyping</span>
+                        <span class="project-tag">Terrain Adaptation</span>
+                        <span class="project-tag">System Testing</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" id="proj-bamboo">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[06]</span>
+                    <h3>Bamboo-Bot</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <p class="project-desc">
+                        A fun side project exploring how simple natural materials could be turned into
+                        a working mechanical system. Built from bamboo with a water-driven mechanism.
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Fully water-powered mechanical build made from bamboo</li>
+                        <li>Demonstrated sustainable engineering through natural materials</li>
+                        <li>Creative concept project combining mechanics and sustainability</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Sustainable Design</span>
+                        <span class="project-tag">Mechanical Prototyping</span>
+                        <span class="project-tag">Creative Engineering</span>
+                        <span class="project-tag">Mechanism Design</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" id="proj-propeller">
+                <div class="project-card-header" onclick="this.parentElement.classList.toggle('open')">
+                    <span class="project-number">[07]</span>
+                    <h3>8-Bit Propeller LED Display</h3>
+                    <span class="project-arrow">&#9656;</span>
+                </div>
+                <div class="project-card-body">
+                    <div class="project-media">
+                        <video class="project-video" controls muted autoplay loop playsinline>
+                            <source src="8 bit propeller-led-display.mp4" type="video/mp4" />
+                        </video>
+                    </div>
+                    <p class="project-desc">
+                        Built an 8-bit propeller display from scratch creating floating visual patterns
+                        in mid-air using persistence of vision (POV).
+                    </p>
+                    <div class="key-results-label">Key Results</div>
+                    <ul class="project-key-results">
+                        <li>Floating visual patterns in mid-air via persistence of vision</li>
+                        <li>Displays text and time through synchronized LED switching</li>
+                        <li>Working prototype combining embedded systems and mechanical design</li>
+                    </ul>
+                    <div class="project-tags">
+                        <span class="project-tag">Arduino</span>
+                        <span class="project-tag">Embedded Systems</span>
+                        <span class="project-tag">POV Display</span>
+                        <span class="project-tag">LED Control</span>
+                        <span class="project-tag">Circuit Design</span>
+                        <span class="project-tag">Mechanical Assembly</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-hazard"></div>
+
+        <!-- EDUCATION -->
+        <section class="section" id="education">
+            <div class="section-header">
+                <h2>Education</h2>
+                <div class="section-subtitle">Academic Foundation</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// ACADEMIC FOUNDATION</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">2 DEGREES // GERMANY + INDIA</span>
+            </div>
+
+            <div class="edu-card">
+                <h3>M.Eng. Mechatronics and Cyber-Physical Systems</h3>
+                <div class="edu-school">Deggendorf Institute of Technology, Germany</div>
+                <div class="edu-date">2021 &ndash; 2025</div>
+                <div class="edu-desc">
+                    <strong>Thesis:</strong> Designed an 11-DOF tendon-driven humanoid robotic hand
+                    for the 4NE-1 platform at Neura Robotics.
+                </div>
+            </div>
+
+            <div class="edu-card">
+                <h3>B.Tech Electronics and Communication Engineering</h3>
+                <div class="edu-school">Rajagiri School of Engineering and Technology, India</div>
+                <div class="edu-date">2015 &ndash; 2019</div>
+                <div class="edu-desc">
+                    <strong>Thesis:</strong> EMG-controlled prosthetic arm. Received Best Bachelor's Project Award.
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-thick"></div>
+
+        <!-- SKILLS -->
+        <section class="section" id="skills">
+            <div class="section-header">
+                <h2>Skills</h2>
+                <div class="section-subtitle">Technical Skills</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// TECHNICAL SKILLS</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">HARDWARE + SOFTWARE + TOOLS</span>
+            </div>
+
+            <div class="skills-grid">
+                <div class="skill-cat">
+                    <h3>Robotics &amp; Manipulation</h3>
+                    <span class="skill-tag">Humanoid Robotics</span>
+                    <span class="skill-tag">Robotic Hands</span>
+                    <span class="skill-tag">Dexterous Manipulation</span>
+                    <span class="skill-tag">Robotic System Integration</span>
+                    <span class="skill-tag">Vision-Assisted Grasping</span>
+                    <span class="skill-tag">Tendon-Driven Mechanisms</span>
+                    <span class="skill-tag">Kinematic Modeling</span>
+                    <span class="skill-tag">Robot Calibration</span>
+                </div>
+                <div class="skill-cat">
+                    <h3>Mechanical &amp; Validation</h3>
+                    <span class="skill-tag">Mechanical Design</span>
+                    <span class="skill-tag">CAD (Creo/SolidWorks)</span>
+                    <span class="skill-tag">Actuator Integration</span>
+                    <span class="skill-tag">Rapid Prototyping</span>
+                    <span class="skill-tag">3D Printing</span>
+                    <span class="skill-tag">Test &amp; Validation</span>
+                    <span class="skill-tag">FEA</span>
+                    <span class="skill-tag">Technical Troubleshooting</span>
+                </div>
+                <div class="skill-cat">
+                    <h3>Programming &amp; Tools</h3>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Arduino</span>
+                    <span class="skill-tag">Raspberry Pi</span>
+                    <span class="skill-tag">Embedded Systems</span>
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">Blender</span>
+                    <span class="skill-tag">Jira / Confluence</span>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-hazard"></div>
+
+        <!-- ACHIEVEMENTS -->
+        <section class="section" id="achievements">
+            <div class="section-header">
+                <h2>Achievements</h2>
+                <div class="section-subtitle">Awards &amp; Recognition</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// AWARDS &amp; RECOGNITION</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">4 AWARDS // NATIONAL + INSTITUTE LEVEL</span>
+            </div>
+
+            <div class="achieve-card">
+                <div class="achieve-year">2019</div>
+                <div class="achieve-info">
+                    <h4>First Prize &ndash; Roborave International</h4>
+                    <p>AlpineBot competition</p>
+                </div>
+            </div>
+            <div class="achieve-card">
+                <div class="achieve-year">2019</div>
+                <div class="achieve-info">
+                    <h4>First Prize &ndash; National Robotics Event</h4>
+                    <p>MazelBot competition</p>
+                </div>
+            </div>
+            <div class="achieve-card">
+                <div class="achieve-year">2019</div>
+                <div class="achieve-info">
+                    <h4>Best Bachelor's Project Award</h4>
+                    <p>Electronics Department, 2019</p>
+                </div>
+            </div>
+            <div class="achieve-card">
+                <div class="achieve-year">2017</div>
+                <div class="achieve-info">
+                    <h4>All-Rounder Student Award</h4>
+                    <p>Academic and extracurricular excellence</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider-thick"></div>
+
+        <!-- BEYOND ENGINEERING -->
+        <section class="section" id="beyond">
+            <div class="section-header">
+                <h2>Beyond Engineering</h2>
+                <div class="section-subtitle">Personal Interests</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// PERSONAL INTERESTS</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">MUSIC // COOKING // BASKETBALL // DOGS</span>
+            </div>
+
+            <div class="beyond-content">
+                <p>
+                    While engineering and robotics are a big part of my life, I also believe that creativity
+                    and passion outside of work shape who we are as individuals. Music is one of my biggest
+                    passions. I love singing and often perform at local bars and small concerts. Performing
+                    in front of people has helped me build confidence, connect with different audiences,
+                    and express creativity in a way that is completely different from engineering. I also
+                    enjoy cooking and experimenting with different cuisines; for me, cooking is similar
+                    to engineering &mdash; it involves creativity, precision, and the joy of creating something
+                    meaningful from simple ingredients. Sports have always been important in my life as well.
+                    I enjoy playing basketball, which helps me stay active and reinforces teamwork and
+                    discipline. And of course, I absolutely love dogs; spending time with them brings balance
+                    and energy to my life outside of technical work. For me, these interests complement my
+                    engineering mindset by keeping me creative, balanced, and connected with people beyond
+                    the world of technology.
+                </p>
+                <img src="HIJE_1EW8AACAdz.jpg" alt="John Paul performing music" />
+            </div>
+        </section>
+
+        <div class="divider-hazard"></div>
+
+        <!-- CONTACT -->
+        <section class="section" id="contact">
+            <div class="section-header">
+                <h2>Contact</h2>
+                <div class="section-subtitle">Let's Build the Future of Robotics</div>
+            </div>
+            <div class="section-marker">
+                <span class="marker-prefix">/// GET IN TOUCH</span>
+                <span class="marker-line"></span>
+                <span class="marker-code">COLLABORATION // RESEARCH // OPPORTUNITIES</span>
+            </div>
+
+            <p style="font-family:var(--font-body);font-size:13px;line-height:1.7;margin-bottom:32px;max-width:520px;">
+                Interested in collaboration, research opportunities, or just want to talk about robotics?
+                I'd love to hear from you.
+            </p>
+
+            <div class="contact-grid">
+                <form class="contact-form" action="#" method="post">
+                    <input type="text" placeholder="Name" name="name" />
+                    <input type="email" placeholder="Email" name="email" />
+                    <textarea placeholder="Message" name="message"></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-label">Email</div>
+                        <a href="mailto:johnpaul101296@gmail.com">johnpaul101296@gmail.com</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">LinkedIn</div>
+                        <a href="https://linkedin.com/in/johnpaul1012" target="_blank">linkedin.com/in/johnpaul1012</a>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">WhatsApp</div>
+                        <span>+49 176 25522673</span>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-label">Location</div>
+                        <span>Stuttgart, Germany</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER -->
+        <footer>
+            <span>&copy; 2026 John Paul &mdash; Mechatronics Engineer</span>
+            <span>/// BUILT WITH BRUTALISM</span>
+        </footer>
+
+        <script>
+            // PROJECT CARDS
+            document.querySelectorAll(".project-card-header").forEach(function(header) {
+                header.addEventListener("click", function() {
+                    var card = this.parentElement;
+                    card.classList.toggle("open");
+                });
+            });
+        
+            // CAREER STACK — scrollytelling + expand/collapse
+            (function() {
+                'use strict';
+                
+                // Expand/collapse — click anywhere on card to toggle
+                var jobCards = document.querySelectorAll('.job-card');
+                jobCards.forEach(function(card) {
+                    card.addEventListener('click', function(e) {
+                        // Don't toggle when clicking interactive elements inside (if any)
+                        var isOpening = !this.classList.contains('open');
+                        
+                        // Close all others
+                        document.querySelectorAll('.job-card.open').forEach(function(other) {
+                            if (other !== this) other.classList.remove('open');
+                        }.bind(this));
+                        
+                        if (isOpening) {
+                            this.classList.add('open');
+                        } else {
+                            this.classList.remove('open');
+                        }
+                    });
+                });
+                
+                // IntersectionObserver for scrollytelling entrance
+                var jobCards = document.querySelectorAll('.job-card');
+                if (jobCards.length) {
+                    var observer = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                entry.target.classList.add('is-visible');
+                            }
+                        });
+                    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+                    
+                    jobCards.forEach(function(c) { observer.observe(c); });
+                    
+                    // Also trigger already-visible on load
+                    setTimeout(function() {
+                        jobCards.forEach(function(c) {
+                            var rect = c.getBoundingClientRect();
+                            if (rect.top < window.innerHeight - 40) {
+                                c.classList.add('is-visible');
+                            }
+                        });
+                    }, 100);
+                }
+                
+                // IntersectionObserver for Stories stacked scrollytelling
+                var storyCards = document.querySelectorAll('.scrolly-card');
+                if (storyCards.length) {
+                    var storyObserver = new IntersectionObserver(function(entries) {
+                        entries.forEach(function(entry) {
+                            if (entry.isIntersecting) {
+                                // First reveal: fade in the card
+                                entry.target.classList.add('is-visible');
+                                // Then after a brief delay, reveal body content
+                                setTimeout(function() {
+                                    entry.target.classList.add('active');
+                                }, 300);
+                            }
+                        });
+                    }, { threshold: 0.15, rootMargin: '0px 0px -20px 0px' });
+                    
+                    storyCards.forEach(function(c) { storyObserver.observe(c); });
+                    
+                    // Also trigger already-visible on load
+                    setTimeout(function() {
+                        storyCards.forEach(function(c) {
+                            var rect = c.getBoundingClientRect();
+                            if (rect.top < window.innerHeight - 20) {
+                                c.classList.add('is-visible');
+                                setTimeout(function() { c.classList.add('active'); }, 200);
+                            }
+                        });
+                    }, 100);
+                }
+            })();
+        </script>
+    </body>
+</html>
