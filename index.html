@@ -85,14 +85,40 @@
             .career-container{background:var(--bg-card);border-radius:12px;border:1px solid var(--border);padding:32px 32px 32px 32px;position:relative}
             .career-title{font-family:var(--font-ui);font-size:16px;font-weight:700;color:#ddd;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:24px}
 
+            /* 3-column wrapper: years | side-bar | cards */
+            .timeline-wrapper{
+              display:grid;
+              grid-template-columns:44px 22px 1fr;
+              position:relative}
+
+            /* YEAR AXIS — left column */
+            .timeline-years{
+              grid-column:1;position:relative;
+              border-right:1px solid var(--border-strong)}
+            .timeline-years .yr{
+              position:absolute;right:10px;transform:translateY(-50%);
+              font-family:var(--font-mono);font-size:9px;font-weight:600;
+              color:var(--text-muted);letter-spacing:0.04em;line-height:1;white-space:nowrap}
+
+            /* SIDE PROJECTS BAR — middle column */
+            .side-projects-bar{
+              grid-column:2;
+              background:repeating-linear-gradient(-45deg,rgba(37,99,235,0.30),rgba(37,99,235,0.30) 3px,rgba(30,80,200,0.18) 3px,rgba(30,80,200,0.18) 6px);
+              border-radius:3px;display:flex;align-items:center;justify-content:center}
+            .side-projects-label{font-family:var(--font-mono);font-size:7px;font-weight:700;
+              color:rgba(255,255,255,0.55);text-transform:uppercase;letter-spacing:0.25em;
+              writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;line-height:1.2;padding:8px 0}
+
+            /* CARDS — right column */
             .timeline-grid{
+              grid-column:3;
               display:flex;flex-direction:column;gap:16px;
-              position:relative;padding-left:44px}
+              position:relative;padding-left:28px;padding-right:0}
 
             /* vertical timeline line */
             .timeline-grid::before{
               content:'';position:absolute;
-              left:17px;top:10px;bottom:10px;width:2px;
+              left:10px;top:10px;bottom:10px;width:2px;
               background:var(--border-strong);pointer-events:none}
 
             /* JOB CARD */
@@ -101,7 +127,7 @@
               transition:border-color 0.3s,box-shadow 0.3s,transform 0.6s cubic-bezier(0.23,1,0.32,1),opacity 0.6s cubic-bezier(0.23,1,0.32,1);
               opacity:0;transform:translateY(20px);
               cursor:pointer;z-index:1;position:relative}
-            .job-card::before{content:'';position:absolute;left:-34px;top:24px;
+            .job-card::before{content:'';position:absolute;left:-22px;top:24px;
               width:12px;height:12px;border-radius:50%;
               background:var(--text-muted);border:3px solid var(--bg-card);
               z-index:2;transition:background 0.3s,transform 0.3s}
@@ -311,10 +337,13 @@
                 .hero{padding:40px 24px}
                 .hero-content h1{font-size:36px}
                 .section-header h2{font-size:28px}
-                .career-container{padding:24px 20px}
-                .timeline-grid{padding-left:36px;gap:12px}
-                .timeline-grid::before{left:13px}
-                .job-card::before{left:-30px;top:20px;width:10px;height:10px}
+                .career-container{padding:24px 16px}
+                .timeline-wrapper{grid-template-columns:36px 18px 1fr}
+                .timeline-years .yr{font-size:7px;right:8px}
+                .side-projects-label{font-size:6px;letter-spacing:0.15em}
+                .timeline-grid{padding-left:22px;gap:12px}
+                .timeline-grid::before{left:8px}
+                .job-card::before{left:-18px;top:20px;width:10px;height:10px}
                 .job-card-header{padding:14px 14px;gap:10px}
                 .job-logo{width:34px;height:34px}
                 .job-company{font-size:14px}
@@ -599,10 +628,34 @@
             <div class="career-container">
                 <div class="career-title">CAREER JOURNEY</div>
 
-                <div class="timeline-grid">
+                <div class="timeline-wrapper">
 
-                    <!-- ===== NEURA ROBOTICS (2024-Present) ===== -->
-                    <div class="job-card current" id="job-neura" data-stagger="1">
+                    <!-- YEAR AXIS -->
+                    <div class="timeline-years">
+                        <span class="yr" style="top:0%">2027</span>
+                        <span class="yr" style="top:9%">2026</span>
+                        <span class="yr" style="top:18%">2025</span>
+                        <span class="yr" style="top:27%">2024</span>
+                        <span class="yr" style="top:36%">2023</span>
+                        <span class="yr" style="top:45%">2022</span>
+                        <span class="yr" style="top:55%">2021</span>
+                        <span class="yr" style="top:64%">2020</span>
+                        <span class="yr" style="top:73%">2019</span>
+                        <span class="yr" style="top:82%">2018</span>
+                        <span class="yr" style="top:91%">2017</span>
+                        <span class="yr" style="top:100%">2016</span>
+                    </div>
+
+                    <!-- SIDE PROJECTS BAR -->
+                    <div class="side-projects-bar">
+                        <span class="side-projects-label">Side Projects</span>
+                    </div>
+
+                    <!-- CARDS + TIMELINE -->
+                    <div class="timeline-grid">
+
+                        <!-- ===== NEURA ROBOTICS (2024-Present) ===== -->
+                        <div class="job-card current" id="job-neura" data-stagger="1">
                         <div class="job-card-header">
                             <img src="neurarobotics-logo.jpeg" alt="Neura Robotics" class="job-logo" />
                             <div class="job-info">
@@ -841,6 +894,8 @@
                     </div>
 
                 </div><!-- /timeline-grid -->
+
+                </div><!-- /timeline-wrapper -->
             </div><!-- /career-container -->
         </section>
 
