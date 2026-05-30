@@ -80,55 +80,56 @@
             nav .nav-brand{font-family:var(--font-mono);font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:0.12em;color:var(--text-body)}
 
             /* ============================================================
-               CAREER JOURNEY — GANTT-STYLE TIMELINE
+               CAREER JOURNEY — VERTICAL TIMELINE
                ============================================================ */
-            :root{--yr:48px}
-            .career-container{background:var(--bg-card);border-radius:12px;border:1px solid var(--border);padding:20px 0 20px 24px;position:relative}
-            .career-title{font-family:var(--font-ui);font-size:14px;font-weight:700;color:#ddd;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:16px;padding-right:24px}
+            .career-container{background:var(--bg-card);border-radius:12px;border:1px solid var(--border);padding:32px 32px 32px 32px;position:relative}
+            .career-title{font-family:var(--font-ui);font-size:16px;font-weight:700;color:#ddd;text-transform:uppercase;letter-spacing:0.14em;margin-bottom:24px}
 
-            .timeline-grid{display:grid;
-              grid-template-columns:40px 10px 16px 14px 1fr;
-              grid-auto-rows:minmax(var(--yr),auto);
-              position:relative;padding-right:20px}
+            .timeline-grid{
+              display:flex;flex-direction:column;gap:16px;
+              position:relative;padding-left:44px}
 
-            .year-label{grid-column:1;font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:0.04em;position:relative;display:flex;align-items:flex-start;padding-top:3px;z-index:1}
-            .year-label::after{content:'';position:absolute;left:calc(100% + 6px);right:-2000px;top:0;height:1px;background:rgba(255,255,255,0.04);pointer-events:none}
-            .year-label:last-child::after{height:0}
-
-            .side-projects-bar{grid-column:3;
-              background:repeating-linear-gradient(-45deg,rgba(100,160,70,0.35),rgba(100,160,70,0.35) 3px,rgba(80,130,55,0.25) 3px,rgba(80,130,55,0.25) 6px);
-              border-radius:2px;position:relative;display:flex;align-items:center;justify-content:center;margin:2px 0}
-            .side-projects-label{font-family:var(--font-mono);font-size:7px;font-weight:700;color:rgba(255,255,255,0.6);text-transform:uppercase;letter-spacing:0.25em;
-              writing-mode:vertical-rl;transform:rotate(180deg);white-space:nowrap;line-height:1.2;padding:6px 0}
+            /* vertical timeline line */
+            .timeline-grid::before{
+              content:'';position:absolute;
+              left:17px;top:10px;bottom:10px;width:2px;
+              background:var(--border-strong);pointer-events:none}
 
             /* JOB CARD */
-            .job-card{border-radius:6px;border:1px solid var(--border);overflow:hidden;
-              grid-column:5;background:var(--bg-deep);
+            .job-card{border-radius:8px;border:1px solid var(--border);overflow:hidden;
+              background:var(--bg-deep);
               transition:border-color 0.3s,box-shadow 0.3s,transform 0.6s cubic-bezier(0.23,1,0.32,1),opacity 0.6s cubic-bezier(0.23,1,0.32,1);
               opacity:0;transform:translateY(20px);
-              cursor:pointer;z-index:1;position:relative;margin:2px 0}
+              cursor:pointer;z-index:1;position:relative}
+            .job-card::before{content:'';position:absolute;left:-34px;top:24px;
+              width:12px;height:12px;border-radius:50%;
+              background:var(--text-muted);border:3px solid var(--bg-card);
+              z-index:2;transition:background 0.3s,transform 0.3s}
+            .job-card.current::before{background:#2563EB;transform:scale(1.2)}
             .job-card.is-visible{opacity:1;transform:translateY(0)}
             .job-card:hover{border-color:var(--border-strong);z-index:2}
+            .job-card:hover::before{transform:scale(1.3)}
+            .job-card.current:hover::before{transform:scale(1.4)}
             .job-card.current{border-color:#2563EB;box-shadow:0 0 0 1px rgba(37,99,235,0.12)}
             .job-card.current:hover{box-shadow:0 0 0 1px rgba(37,99,235,0.25),0 4px 20px rgba(37,99,235,0.08)}
 
-            .job-card-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;
+            .job-card-header{display:flex;align-items:center;gap:14px;padding:20px 20px;cursor:pointer;user-select:none;
               transition:background 0.25s}
             .job-card-header:hover{background:rgba(255,255,255,0.015)}
 
-            .job-logo{width:32px;height:32px;object-fit:contain;border-radius:4px;flex-shrink:0}
+            .job-logo{width:42px;height:42px;object-fit:contain;border-radius:6px;flex-shrink:0}
 
             .job-info{flex:1;min-width:0}
-            .job-company{font-family:var(--font-ui),sans-serif;font-size:12px;font-weight:700;color:var(--text-body);letter-spacing:-0.15px;line-height:1.2;
-              display:flex;align-items:baseline;gap:4px;flex-wrap:wrap}
+            .job-company{font-family:var(--font-ui),sans-serif;font-size:16px;font-weight:700;color:var(--text-body);letter-spacing:-0.15px;line-height:1.3;
+              display:flex;align-items:baseline;gap:6px;flex-wrap:wrap}
             .job-company .company-sep{color:var(--text-meta);font-weight:400}
-            .job-company .company-location{color:var(--text-meta);font-weight:400;font-size:10px}
-            .job-role{font-family:var(--font-ui),sans-serif;font-size:9px;font-weight:500;color:var(--text-muted);margin-top:1px;line-height:1.3}
-            .job-dates{font-family:var(--font-mono);font-size:7px;font-weight:500;color:var(--text-meta);text-transform:uppercase;letter-spacing:0.06em;margin-top:1px}
+            .job-company .company-location{color:var(--text-meta);font-weight:400;font-size:13px}
+            .job-role{font-family:var(--font-ui),sans-serif;font-size:13px;font-weight:500;color:var(--text-muted);margin-top:4px;line-height:1.3}
+            .job-dates{font-family:var(--font-mono);font-size:11px;font-weight:500;color:var(--text-meta);text-transform:uppercase;letter-spacing:0.06em;margin-top:4px}
 
-            .job-expand{width:24px;height:24px;border-radius:50%;border:1px solid var(--border-strong);
+            .job-expand{width:30px;height:30px;border-radius:50%;border:1px solid var(--border-strong);
               display:flex;align-items:center;justify-content:center;flex-shrink:0;
-              font-family:var(--font-ui);font-size:12px;font-weight:300;color:var(--text-muted);
+              font-family:var(--font-ui);font-size:16px;font-weight:300;color:var(--text-muted);
               transition:transform 0.3s cubic-bezier(0.23,1,0.32,1),background 0.25s,border-color 0.25s,color 0.25s}
             .job-card.open .job-expand{transform:rotate(135deg);color:#2563EB;border-color:#2563EB}
             .job-card.current .job-expand{border-color:rgba(37,99,235,0.3)}
@@ -136,31 +137,31 @@
 
             .job-card-body{max-height:0;overflow:hidden;transition:max-height 0.45s cubic-bezier(0.23,1,0.32,1)}
             .job-card.open .job-card-body{max-height:2000px;overflow:visible}
-            .job-card-body-inner{padding:0 12px 12px;border-top:1px solid var(--border)}
+            .job-card-body-inner{padding:0 20px 20px;border-top:1px solid var(--border)}
 
-            .job-description{font-family:var(--font-body);font-size:11px;line-height:1.6;letter-spacing:-0.01em;color:var(--text-body);margin-top:10px;max-width:680px}
+            .job-description{font-family:var(--font-body);font-size:14px;line-height:1.7;letter-spacing:-0.01em;color:var(--text-body);margin-top:16px;max-width:720px}
 
-            .job-subroles{margin-top:12px;display:flex;flex-direction:column;gap:4px}
-            .job-subrole{display:flex;align-items:flex-start;gap:6px;padding:6px 8px;background:rgba(255,255,255,0.015);border-radius:4px;border-left:2px solid var(--border)}
-            .job-subrole-bullet{width:5px;height:5px;border-radius:50%;background:var(--text-meta);flex-shrink:0;margin-top:4px}
+            .job-subroles{margin-top:16px;display:flex;flex-direction:column;gap:6px}
+            .job-subrole{display:flex;align-items:flex-start;gap:8px;padding:10px 12px;background:rgba(255,255,255,0.015);border-radius:6px;border-left:2px solid var(--border)}
+            .job-subrole-bullet{width:6px;height:6px;border-radius:50%;background:var(--text-meta);flex-shrink:0;margin-top:5px}
             .job-subrole-info{flex:1}
-            .job-subrole-title{font-family:var(--font-ui),sans-serif;font-size:11px;font-weight:600;color:#ccc}
-            .job-subrole-date{font-family:var(--font-mono);font-size:8px;font-weight:400;color:var(--text-meta);margin-top:1px}
+            .job-subrole-title{font-family:var(--font-ui),sans-serif;font-size:13px;font-weight:600;color:#ccc}
+            .job-subrole-date{font-family:var(--font-mono);font-size:10px;font-weight:400;color:var(--text-meta);margin-top:2px}
 
-            .job-highlights{margin-top:12px;display:grid;grid-template-columns:1fr;gap:0}
-            .job-highlight{padding:7px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:flex-start}
+            .job-highlights{margin-top:16px;display:grid;grid-template-columns:1fr;gap:0}
+            .job-highlight{padding:9px 0;border-bottom:1px solid var(--border);display:flex;gap:12px;align-items:flex-start}
             .job-highlight:last-child{border-bottom:none}
-            .job-highlight-icon{font-size:12px;flex-shrink:0;margin-top:1px;color:#2563EB;opacity:0.5}
-            .job-highlight-text{font-family:var(--font-ui),sans-serif;font-size:11px;line-height:1.5;color:var(--text-body);letter-spacing:-0.01em}
+            .job-highlight-icon{font-size:15px;flex-shrink:0;margin-top:2px;color:#2563EB;opacity:0.5}
+            .job-highlight-text{font-family:var(--font-ui),sans-serif;font-size:13px;line-height:1.6;color:var(--text-body);letter-spacing:-0.01em}
             .job-highlight-text strong{color:#fff}
 
-            .job-testimonial{margin-top:12px;padding:10px 12px;background:rgba(37,99,235,0.02);border-radius:6px;border-left:2px solid rgba(37,99,235,0.15)}
-            .job-testimonial-quote{font-family:var(--font-body);font-size:10px;line-height:1.6;font-style:italic;color:var(--text-muted);margin-bottom:6px}
-            .job-testimonial-author{font-family:var(--font-ui),sans-serif;font-size:10px;font-weight:600;color:var(--text-heading)}
+            .job-testimonial{margin-top:16px;padding:14px 16px;background:rgba(37,99,235,0.02);border-radius:8px;border-left:2px solid rgba(37,99,235,0.15)}
+            .job-testimonial-quote{font-family:var(--font-body);font-size:13px;line-height:1.7;font-style:italic;color:var(--text-muted);margin-bottom:8px}
+            .job-testimonial-author{font-family:var(--font-ui),sans-serif;font-size:12px;font-weight:600;color:var(--text-heading)}
             .job-testimonial-author span{font-weight:400;color:var(--text-meta)}
 
-            .job-tags{display:flex;flex-wrap:wrap;gap:4px;margin-top:12px}
-            .job-tag{font-family:var(--font-mono);font-size:7px;font-weight:600;color:var(--text-muted);padding:2px 6px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.06em;border-radius:2px}
+            .job-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
+            .job-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);padding:3px 8px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.06em;border-radius:2px}
 
             /* staggered entrance */
             .job-card[data-stagger="1"].is-visible{transition-delay:0s}
@@ -310,19 +311,18 @@
                 .hero{padding:40px 24px}
                 .hero-content h1{font-size:36px}
                 .section-header h2{font-size:28px}
-                .career-container{padding:16px 0 16px 16px}
-                .timeline-grid{grid-template-columns:32px 8px 12px 10px 1fr;padding-right:12px}
-                .job-card-header{padding:10px 12px;gap:8px}
-                .job-logo{width:28px;height:28px}
-                .job-company{font-size:11px}
-                .job-role{font-size:8px}
-                .job-dates{font-size:6px}
-                .job-expand{width:18px;height:18px;font-size:10px}
-                .job-card-body-inner{padding:0 10px 10px}
-                .job-description{font-size:10px}
-                .year-label{font-size:7px;padding-top:2px}
-                .side-projects-label{font-size:6px;letter-spacing:0.15em}
-                .job-card{grid-column:5}
+                .career-container{padding:24px 20px}
+                .timeline-grid{padding-left:36px;gap:12px}
+                .timeline-grid::before{left:13px}
+                .job-card::before{left:-30px;top:20px;width:10px;height:10px}
+                .job-card-header{padding:14px 14px;gap:10px}
+                .job-logo{width:34px;height:34px}
+                .job-company{font-size:14px}
+                .job-role{font-size:11px}
+                .job-dates{font-size:9px}
+                .job-expand{width:26px;height:26px;font-size:13px}
+                .job-card-body-inner{padding:0 14px 14px}
+                .job-description{font-size:12px}
                 .story-image-grid img,.story-img-wrap{width:140px}
                 .story-group-header{flex-direction:column;gap:6px}
                 footer{padding:16px 24px;flex-direction:column;gap:8px}
@@ -601,27 +601,8 @@
 
                 <div class="timeline-grid">
 
-                    <!-- ===== YEAR LABELS ===== -->
-                    <div class="year-label" style="grid-row:1">2027</div>
-                    <div class="year-label" style="grid-row:2">2026</div>
-                    <div class="year-label" style="grid-row:3">2025</div>
-                    <div class="year-label" style="grid-row:4">2024</div>
-                    <div class="year-label" style="grid-row:5">2023</div>
-                    <div class="year-label" style="grid-row:6">2022</div>
-                    <div class="year-label" style="grid-row:7">2021</div>
-                    <div class="year-label" style="grid-row:8">2020</div>
-                    <div class="year-label" style="grid-row:9">2019</div>
-                    <div class="year-label" style="grid-row:10">2018</div>
-                    <div class="year-label" style="grid-row:11">2017</div>
-                    <div class="year-label" style="grid-row:12">2016</div>
-
-                    <!-- ===== SIDE PROJECTS BAR ===== -->
-                    <div class="side-projects-bar" style="grid-row:3 / 13">
-                        <span class="side-projects-label">Side Projects</span>
-                    </div>
-
-                    <!-- ===== NEURA ROBOTICS (2024-Present)  grid-row: 1 / 5 ===== -->
-                    <div class="job-card current" style="grid-row:1 / 5" id="job-neura" data-stagger="1">
+                    <!-- ===== NEURA ROBOTICS (2024-Present) ===== -->
+                    <div class="job-card current" id="job-neura" data-stagger="1">
                         <div class="job-card-header">
                             <img src="neurarobotics-logo.jpeg" alt="Neura Robotics" class="job-logo" />
                             <div class="job-info">
@@ -689,8 +670,8 @@
                         </div>
                     </div>
 
-                    <!-- ===== NAVVIS GMBH (2022-2023)  grid-row: 5 / 7 ===== -->
-                    <div class="job-card" style="grid-row:5 / 7" id="job-navvis" data-stagger="2">
+                    <!-- ===== NAVVIS GMBH (2022-2023) ===== -->
+                    <div class="job-card" id="job-navvis" data-stagger="2">
                         <div class="job-card-header">
                             <img src="navvis gmbh logo.jpg" alt="NavVis GmbH" class="job-logo" />
                             <div class="job-info">
@@ -740,8 +721,8 @@
                         </div>
                     </div>
 
-                    <!-- ===== NAVIDIUM INDIA (2019-2021)  grid-row: 7 / 10 ===== -->
-                    <div class="job-card" style="grid-row:7 / 10" id="job-navidium" data-stagger="3">
+                    <!-- ===== NAVIDIUM INDIA (2019-2021) ===== -->
+                    <div class="job-card" id="job-navidium" data-stagger="3">
                         <div class="job-card-header">
                             <img src="navidium india logo.webp" alt="Navidium India" class="job-logo" />
                             <div class="job-info">
@@ -783,8 +764,8 @@
                         </div>
                     </div>
 
-                    <!-- ===== MERCEDES-BENZ (2018)  grid-row: 10 / 11 ===== -->
-                    <div class="job-card" style="grid-row:10 / 11" id="job-mercedes" data-stagger="4">
+                    <!-- ===== MERCEDES-BENZ (2018) ===== -->
+                    <div class="job-card" id="job-mercedes" data-stagger="4">
                         <div class="job-card-header">
                             <img src="mercedes logo.png" alt="Mercedes-Benz" class="job-logo" />
                             <div class="job-info">
@@ -821,8 +802,8 @@
                         </div>
                     </div>
 
-                    <!-- ===== KELTRON (2016)  grid-row: 12 / 13 ===== -->
-                    <div class="job-card" style="grid-row:12 / 13" id="job-keltron" data-stagger="5">
+                    <!-- ===== KELTRON (2016) ===== -->
+                    <div class="job-card" id="job-keltron" data-stagger="5">
                         <div class="job-card-header">
                             <img src="keltron logo.webp" alt="KELTRON" class="job-logo" />
                             <div class="job-info">
