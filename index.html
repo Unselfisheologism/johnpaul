@@ -592,19 +592,22 @@
                 .layer-content{padding:24px 16px;max-width:100%;display:block}
                 .layer-content-full{grid-column:auto}
             }
+
+            /* TICKER MARQUEE — thin single-line left-to-right */
+            .marquee{width:100%;overflow:hidden;background:#000;border-bottom:1px solid var(--border);height:28px;display:flex;align-items:center}
+            .marquee-track{display:flex;white-space:nowrap;animation:marquee-ltr 30s linear infinite}
+            .marquee-content{font-family:var(--font-mono);font-size:10px;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;color:var(--text-muted);flex-shrink:0;padding-right:0}
+            @keyframes marquee-ltr{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
+            .marquee:hover .marquee-track{animation-play-state:paused}
 </style>
     </head>
     <body>
 
-        <!-- TICKER -->
-        <div class="ticker">
-            <div class="ticker-track">
-                <span class="ticker-item"><span class="ticker-dot"></span> HARDWARE DESIGN // MECHATRONICS // ROBOTICS</span>
-                <span class="ticker-item"><span class="ticker-dot"></span> HUMANOID SYSTEMS // ACTUATION INTEGRATION // CAD</span>
-                <span class="ticker-item"><span class="ticker-dot"></span> DEXTEROUS MANIPULATION // RAPID PROTOTYPING // EMBEDDED</span>
-                <span class="ticker-item"><span class="ticker-dot"></span> HARDWARE DESIGN // MECHATRONICS // ROBOTICS</span>
-                <span class="ticker-item"><span class="ticker-dot"></span> HUMANOID SYSTEMS // ACTUATION INTEGRATION // CAD</span>
-                <span class="ticker-item"><span class="ticker-dot"></span> DEXTEROUS MANIPULATION // RAPID PROTOTYPING // EMBEDDED</span>
+        <!-- TICKER MARQUEE -->
+        <div class="marquee">
+            <div class="marquee-track">
+                <span class="marquee-content">HARDWARE DESIGN /// MECHATRONICS /// ROBOTICS /// HUMANOID SYSTEMS /// ACTUATION INTEGRATION /// CAD /// DEXTEROUS MANIPULATION /// RAPID PROTOTYPING /// EMBEDDED&nbsp;&nbsp;</span>
+                <span class="marquee-content" aria-hidden="true">HARDWARE DESIGN /// MECHATRONICS /// ROBOTICS /// HUMANOID SYSTEMS /// ACTUATION INTEGRATION /// CAD /// DEXTEROUS MANIPULATION /// RAPID PROTOTYPING /// EMBEDDED&nbsp;&nbsp;</span>
             </div>
         </div>
 
