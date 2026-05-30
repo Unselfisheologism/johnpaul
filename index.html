@@ -88,7 +88,7 @@
 
             .timeline-grid{display:grid;
               grid-template-columns:40px 10px 16px 14px 1fr;
-              grid-auto-rows:auto;
+              grid-auto-rows:minmax(var(--yr),auto);
               position:relative;padding-right:20px}
 
             .year-label{grid-column:1;font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);letter-spacing:0.04em;position:relative;display:flex;align-items:flex-start;padding-top:3px;z-index:1}
@@ -112,11 +112,11 @@
             .job-card.current{border-color:#2563EB;box-shadow:0 0 0 1px rgba(37,99,235,0.12)}
             .job-card.current:hover{box-shadow:0 0 0 1px rgba(37,99,235,0.25),0 4px 20px rgba(37,99,235,0.08)}
 
-            .job-card-header{display:flex;align-items:center;gap:8px;padding:8px 12px;cursor:pointer;user-select:none;
+            .job-card-header{display:flex;align-items:center;gap:10px;padding:14px 16px;cursor:pointer;user-select:none;
               transition:background 0.25s}
             .job-card-header:hover{background:rgba(255,255,255,0.015)}
 
-            .job-logo{width:26px;height:26px;object-fit:contain;border-radius:4px;flex-shrink:0}
+            .job-logo{width:32px;height:32px;object-fit:contain;border-radius:4px;flex-shrink:0}
 
             .job-info{flex:1;min-width:0}
             .job-company{font-family:var(--font-ui),sans-serif;font-size:12px;font-weight:700;color:var(--text-body);letter-spacing:-0.15px;line-height:1.2;
@@ -126,7 +126,7 @@
             .job-role{font-family:var(--font-ui),sans-serif;font-size:9px;font-weight:500;color:var(--text-muted);margin-top:1px;line-height:1.3}
             .job-dates{font-family:var(--font-mono);font-size:7px;font-weight:500;color:var(--text-meta);text-transform:uppercase;letter-spacing:0.06em;margin-top:1px}
 
-            .job-expand{width:20px;height:20px;border-radius:50%;border:1px solid var(--border-strong);
+            .job-expand{width:24px;height:24px;border-radius:50%;border:1px solid var(--border-strong);
               display:flex;align-items:center;justify-content:center;flex-shrink:0;
               font-family:var(--font-ui);font-size:12px;font-weight:300;color:var(--text-muted);
               transition:transform 0.3s cubic-bezier(0.23,1,0.32,1),background 0.25s,border-color 0.25s,color 0.25s}
@@ -312,8 +312,8 @@
                 .section-header h2{font-size:28px}
                 .career-container{padding:16px 0 16px 16px}
                 .timeline-grid{grid-template-columns:32px 8px 12px 10px 1fr;padding-right:12px}
-                .job-card-header{padding:6px 10px;gap:6px}
-                .job-logo{width:22px;height:22px}
+                .job-card-header{padding:10px 12px;gap:8px}
+                .job-logo{width:28px;height:28px}
                 .job-company{font-size:11px}
                 .job-role{font-size:8px}
                 .job-dates{font-size:6px}
@@ -423,23 +423,29 @@
             /* ============================================================
                STORIES — PINNED SCROLLYTELLING (GSAP)
                ============================================================ */
-            .stories-tab-bar{display:flex;align-items:center;gap:0;padding:0;
+            .stories-tab-bar{display:flex;align-items:flex-end;gap:0;
+              padding:8px 8px 0 8px;
               background:var(--bg-deep);border-bottom:1px solid var(--border-strong);
               position:sticky;top:0;z-index:50;margin-bottom:0;overflow-x:auto}
-            .stories-tab{display:flex;align-items:center;gap:8px;padding:14px 24px;
+            .stories-tab{display:flex;align-items:center;gap:8px;padding:10px 20px;
               font-family:var(--font-mono);font-size:10px;font-weight:600;
               text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);
-              cursor:pointer;border-bottom:2px solid transparent;
-              transition:color 0.3s,border-color 0.3s,background 0.3s;
+              cursor:pointer;
+              border:1px solid var(--border-strong);
+              border-radius:6px 6px 0 0;
+              border-bottom:1px solid var(--border-strong);
+              background:rgba(255,255,255,0.02);
+              margin-bottom:-1px;
+              transition:color 0.3s,background 0.3s,border-color 0.3s;
               white-space:nowrap;user-select:none;flex-shrink:0}
-            .stories-tab:hover{color:var(--text-body);background:rgba(255,255,255,0.02)}
-            .stories-tab.active{color:var(--text-body);border-bottom-color:#fff;
-              background:rgba(255,255,255,0.03)}
+            .stories-tab:hover{color:var(--text-body);background:rgba(255,255,255,0.04)}
+            .stories-tab.active{color:var(--text-body);background:var(--bg);
+              border-bottom-color:var(--bg);z-index:2}
             .stories-tab.active .tab-dot{background:#fff;border-color:#fff}
             .tab-dot{width:6px;height:6px;border-radius:50%;
               border:1.5px solid var(--text-muted);flex-shrink:0;
               transition:background 0.3s,border-color 0.3s}
-            .stories-step{margin-left:auto;padding:14px 24px;
+            .stories-step{margin-left:auto;padding:10px 20px;
               font-family:var(--font-mono);font-size:10px;font-weight:600;
               color:var(--text-muted);letter-spacing:0.15em;white-space:nowrap;flex-shrink:0}
             .step-num{color:var(--text-body)}
