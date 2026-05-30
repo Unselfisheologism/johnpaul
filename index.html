@@ -5,6 +5,17 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>John Paul — Mechatronics Engineer</title>
 
+        <!-- Force scroll position to top — multi-point defense against browser scroll restoration -->
+        <script>
+            if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }
+            window.scrollTo(0,0);
+            // Re-apply after each paint frame until fully loaded
+            function forceTop(){window.scrollTo(0,0);}
+            requestAnimationFrame(forceTop);
+            requestAnimationFrame(function(){requestAnimationFrame(forceTop);});
+            window.addEventListener('load', forceTop);
+        </script>
+
         <!-- FONTS: Heavy Industrial Monospace + Geometric Display -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -24,9 +35,9 @@
                 --bg-card: #1e1e1e;
                 --bg-input: #111111;
                 --text-body: #ffffff;
-                --text-heading: #adb3b7;
-                --text-muted: #555555;
-                --text-meta: rgba(173, 179, 183, 0.5);
+                --text-heading: #d4d4d4;
+                --text-muted: #a0a0a0;
+                --text-meta: rgba(255, 255, 255, 0.25);
                 --blue: #0000ee;
                 --orange: #0000ee;
                 --red: #e61919;
@@ -38,7 +49,7 @@
                 --font-ui: "Space Grotesk",sans-serif;
             }
             *{margin:0;padding:0;box-sizing:border-box}
-            html{font-size:16px;scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+            html{font-size:16px;-webkit-font-smoothing:antialiased}
             body{background:var(--bg);color:var(--text-body);font-family:var(--font-body);font-size:14px;line-height:1;letter-spacing:-0.03em;width:100vw;overflow-x:hidden}
             body::before{content:"";position:fixed;top:0;left:0;right:0;bottom:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.03) 2px,rgba(0,0,0,0.03) 4px);pointer-events:none;z-index:9999}
             a{color:var(--blue);text-decoration:none}
@@ -54,6 +65,26 @@
             .divider-thick{height:4px;background:#fff;width:100%;margin:0}
             .divider-hazard{height:12px;width:100%;background:repeating-linear-gradient(90deg,#fff,#fff 8px,#111 8px,#111 16px);margin:0}
             .divider-blueprint{height:2px;background:repeating-linear-gradient(90deg,rgba(0,0,238,0.15) 0px,rgba(0,0,238,0.15) 4px,transparent 4px,transparent 8px);margin:40px 0;position:relative}
+
+            /* Download strip — thick yellow download bar below hero */
+            .download-strip{width:100%;height:60px;background:#FFD700;position:relative;overflow:hidden;cursor:pointer}
+            .download-strip a{display:flex;align-items:center;justify-content:center;width:100%;height:100%;text-decoration:none;color:#000;position:relative}
+            .download-strip:hover{background:#e6c200}
+            .download-strip:active{background:#cca800}
+            .ds-arrows{display:flex;gap:6px;align-items:center;position:absolute;top:50%;transform:translateY(-50%)}
+            .ds-left{left:32px}
+            .ds-right{right:32px}
+            .arrow-icon{animation:dsBounce 1.8s ease-in-out infinite;opacity:0.65}
+            .arrow-icon:nth-child(2){animation-delay:0.3s}
+            .arrow-icon:nth-child(3){animation-delay:0.6s}
+            .ds-right .arrow-icon{animation-delay:0.15s}
+            .ds-right .arrow-icon:nth-child(2){animation-delay:0.45s}
+            .ds-right .arrow-icon:nth-child(3){animation-delay:0.75s}
+            @keyframes dsBounce{0%,100%{transform:translateY(0);opacity:0.65}50%{transform:translateY(8px);opacity:1}}
+            .ds-center{display:inline-flex;align-items:center;gap:10px;font-family:var(--font-mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.12em;background:#000;color:#FFD700;padding:10px 28px;border-radius:4px;z-index:2;transition:transform 120ms;white-space:nowrap}
+            .ds-center:hover{transform:scale(0.97)}
+            .ds-center svg{width:28px;height:28px;fill:#FFD700}
+            @media(max-width:640px){.ds-arrows{display:none}.download-strip{height:50px}.ds-center{font-size:10px;padding:8px 18px}.ds-center svg{width:22px;height:22px}}
 
             section{padding:48px 48px 64px;width:100%}
             .section-header{margin-bottom:20px}
@@ -187,7 +218,7 @@
             .job-testimonial-author span{font-weight:400;color:var(--text-meta)}
 
             .job-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
-            .job-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);padding:3px 8px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.06em;border-radius:2px}
+            .job-tag{font-family:var(--font-mono);font-size:9px;font-weight:600;color:#d4c9a8;padding:3px 8px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.06em;border-radius:2px}
 
             /* staggered entrance */
             .job-card[data-stagger="1"].is-visible{transition-delay:0s}
@@ -235,7 +266,7 @@
             .tree-folder.open .tree-files{display:block}
             .tree-file{display:flex;align-items:center;gap:6px;padding:5px 14px 5px 34px;cursor:pointer;font-family:var(--font-mono);font-size:9px;color:var(--text-muted);transition:background 0.15s,color 0.15s}
             .tree-file:hover{background:rgba(255,255,255,0.04);color:var(--text-body)}
-            .tree-file.active{color:var(--text-body)}
+            .tree-file.active{color:var(--text-body);background:rgba(0,0,238,0.06);border-left:2px solid var(--blue);padding-left:32px}
             .tree-file .file-icon{font-size:11px;flex-shrink:0}
             .tree-file .file-icon.video{color:#e61919}
             .tree-file .file-icon.image{color:#e6a819}
@@ -257,7 +288,7 @@
             .carousel-slide .slide-text .results li{font-family:var(--font-body);font-size:12px;line-height:1.6;color:var(--text-body);margin-bottom:4px;padding-left:12px;position:relative}
             .carousel-slide .slide-text .results li::before{content:"—";position:absolute;left:0;color:var(--blue)}
             .carousel-slide .slide-text .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:16px}
-            .carousel-slide .slide-text .tags span{font-family:var(--font-mono);font-size:9px;font-weight:600;color:var(--text-muted);padding:4px 8px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.08em}
+            .carousel-slide .slide-text .tags span{font-family:var(--font-mono);font-size:9px;font-weight:600;color:#d4c9a8;padding:4px 8px;border:1px solid var(--border-strong);text-transform:uppercase;letter-spacing:0.08em}
             .carousel-slide .slide-text h4{font-family:var(--font-ui);font-size:18px;font-weight:600;color:var(--text-body);margin-bottom:12px;letter-spacing:-0.3px}
 
             /* SLIDE COUNTER + PROGRESS */
@@ -292,12 +323,13 @@
             .edu-card:last-child{border-bottom:none}
             .edu-card h3{font-family:var(--font-ui);font-size:18px;font-weight:600;color:var(--text-heading);margin-bottom:4px}
             .edu-card .edu-school{font-family:var(--font-mono);font-size:10px;color:var(--text-muted);margin-bottom:4px}
-            .edu-card .edu-date{font-family:var(--font-mono);font-size:9px;color:#555;margin-bottom:8px}
+            .edu-card .edu-date{font-family:var(--font-mono);font-size:9px;color:var(--text-meta);margin-bottom:8px}
             .edu-card .edu-desc{font-family:var(--font-body);font-size:12px;line-height:1.6;color:var(--text-body)}
+            .edu-card .edu-subjects{margin:8px 0 10px}
 
             .skills-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:24px}
             .skill-cat h3{font-family:var(--font-ui);font-size:14px;font-weight:600;color:var(--text-heading);margin-bottom:12px}
-            .skill-tag{display:inline-block;font-family:var(--font-mono);font-size:9px;color:var(--text-muted);padding:4px 8px;border:1px solid var(--border-strong);margin:3px 3px 0 0;text-transform:uppercase;letter-spacing:0.08em}
+            .skill-tag{display:inline-block;font-family:var(--font-mono);font-size:9px;color:#d4c9a8;padding:4px 8px;border:1px solid var(--border-strong);margin:3px 3px 0 0;text-transform:uppercase;letter-spacing:0.08em}
 
             .achieve-card{display:flex;align-items:baseline;gap:16px;padding:12px 0;border-bottom:1px solid var(--border)}
             .achieve-card:last-child{border-bottom:none}
@@ -455,7 +487,7 @@
             .stories-tab-bar{display:flex;align-items:flex-end;gap:0;
               padding:8px 8px 0 8px;
               background:var(--bg-deep);border-bottom:1px solid var(--border-strong);
-              position:sticky;top:0;z-index:50;margin-bottom:0;overflow-x:auto}
+              position:sticky;top:0;z-index:50;margin-bottom:0}
             .stories-tab{display:flex;align-items:center;gap:8px;padding:10px 20px;
               font-family:var(--font-mono);font-size:10px;font-weight:600;
               text-transform:uppercase;letter-spacing:0.15em;color:var(--text-muted);
@@ -489,8 +521,8 @@
 
             .story-layer{grid-area:stack;display:flex;align-items:center;
               justify-content:center;opacity:0;
-              transition:opacity 0.6s cubic-bezier(0.23,1,0.32,1),
-                         filter 0.6s cubic-bezier(0.23,1,0.32,1);
+              transition:opacity 1.2s cubic-bezier(0.23,1,0.32,1),
+                         filter 1.2s cubic-bezier(0.23,1,0.32,1);
               pointer-events:none;filter:blur(3px)}
 
             .story-layer[data-status="active"]{opacity:1;filter:none;
@@ -603,7 +635,6 @@
                 </p>
                 <div class="hero-actions">
                     <a href="#projects" class="btn-hazard"><span class="btn-label">View Projects</span></a>
-                    <a href="John_Paul_CV.pdf" class="btn-outline" download>Download CV</a>
                 </div>
             </div>
             <div class="hero-visual">
@@ -611,7 +642,24 @@
             </div>
         </section>
 
-        <div class="divider-thick"></div>
+        <div class="download-strip">
+            <a href="John_Paul_CV.pdf" download aria-label="Download CV">
+                <div class="ds-arrows ds-left">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+                </div>
+                <div class="ds-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="#FFD700" viewBox="0 0 256 256"><path d="M224,144v64a8,8,0,0,1-8,8H40a8,8,0,0,1-8-8V144a8,8,0,0,1,16,0v56H208V144a8,8,0,0,1,16,0Zm-101.66,5.66a8,8,0,0,0,11.32,0l40-40a8,8,0,0,0-11.32-11.32L136,124.69V32a8,8,0,0,0-16,0v92.69L93.66,98.34a8,8,0,0,0-11.32,11.32Z"/></svg>
+                    <span>Download CV</span>
+                </div>
+                <div class="ds-arrows ds-right">
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+                    <svg class="arrow-icon" viewBox="0 0 24 24" width="22" height="22" fill="#000"><path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z"/></svg>
+                </div>
+            </a>
+        </div>
 
         <!-- EXPERIENCE -->
         <section class="section" id="experience">
@@ -1109,7 +1157,7 @@
                     <div class="ide-tree-title"><span>&#128193;</span> projects/</div>
 
                     <div class="tree-folder open" data-project="guigui">
-                        <div class="tree-folder-header open active" onclick="selectProject('guigui')"><span class="folder-chevron">&#9656;</span><span class="folder-icon">&#128193;</span><span class="folder-name">guigui/</span></div>
+                        <div class="tree-folder-header open active" onclick="selectProject('guigui')"><span class="folder-chevron">&#9656;</span><span class="folder-icon">&#128193;</span><span class="folder-name">vision-robotic-hand/</span></div>
                         <div class="tree-files">
                             <div class="tree-file active" onclick="goToSlide(0,0)"><span class="file-icon video">&#9654;</span> demo.mp4</div>
                             <div class="tree-file" onclick="goToSlide(0,1)"><span class="file-icon image">&#9632;</span> hand.png</div>
@@ -1182,10 +1230,10 @@
 
                 <div class="carousel-panel">
                     <div class="ide-carousel" id="ide-carousel">
-                        <!-- GUIGUI -->
+                        <!-- Vision Robotic Hand -->
                         <div class="carousel-slide" data-project="guigui"><video controls muted autoplay loop playsinline><source src="https://res.cloudinary.com/dcpcpoyzj/video/upload/q_auto/f_auto/v1779901132/smart_hand_720p_cj6a62.mp4" type="video/mp4" /></video></div>
-                        <div class="carousel-slide" data-project="guigui"><img src="guigui image.png" alt="GUIGUI Vision-Based Tactile Hand" /></div>
-                        <div class="carousel-slide" data-project="guigui"><div class="slide-text"><h4>GUIGUI</h4><p class="desc"><strong>Vision-Based Tactile Robotic Hand with Real-Time Grasp Planning</strong><br/><br/>Independently designed and built an end-to-end robotic hand for adaptive grasping, combining vision-based tactile sensing and ML-based grasp planning to detect contact and adjust grasps in real time.</p></div></div>
+                        <div class="carousel-slide" data-project="guigui"><img src="guigui image.png" alt="Vision Robotic Hand" /></div>
+                        <div class="carousel-slide" data-project="guigui"><div class="slide-text"><h4>Vision Robotic Hand</h4><p class="desc"><strong>Vision-Based Tactile Robotic Hand with Real-Time Grasp Planning</strong><br/><br/>Independently designed and built an end-to-end robotic hand for adaptive grasping, combining vision-based tactile sensing and ML-based grasp planning to detect contact and adjust grasps in real time.</p></div></div>
                         <div class="carousel-slide" data-project="guigui"><div class="slide-text"><div class="results-label">Key Results</div><ul class="results"><li>Achieved 90 N gripping force</li><li>Improved grasp adaptability by ~30% across 6+ object types</li><li>Delivered 3 prototype iterations in 2 months with hardware cost under &euro;2,000</li><li>Self designed Interactive GUI with real time feedback</li></ul></div></div>
                         <div class="carousel-slide" data-project="guigui"><div class="slide-text"><div class="tags"><span>Mechanical Design</span><span>PTC Creo Parametric</span><span>SolidWorks</span><span>Actuation Integration</span><span>Rapid Prototyping</span><span>3D Printing</span><span>Sensor Integration</span><span>Embedded Vision</span><span>GUI Development</span><span>Robotic System Integration</span></div></div></div>
 
@@ -1254,9 +1302,16 @@
                 <h3>M.Eng. Mechatronics and Cyber-Physical Systems</h3>
                 <div class="edu-school">Deggendorf Institute of Technology, Germany</div>
                 <div class="edu-date">2021 &ndash; 2025</div>
+                <div class="edu-subjects">
+                    <span class="skill-tag">Robotics</span>
+                    <span class="skill-tag">Cyber-Physical Systems</span>
+                    <span class="skill-tag">Intelligent Automation</span>
+                    <span class="skill-tag">Mechanical Design &amp; Control Systems</span>
+                </div>
                 <div class="edu-desc">
-                    <strong>Thesis:</strong> Designed an 11-DOF tendon-driven humanoid robotic hand
-                    for the 4NE-1 platform at Neura Robotics.
+                    <strong>Thesis:</strong> Designed and developed an 11-DOF tendon-driven humanoid
+                    robotic hand for the 4NE-1 platform at Neura Robotics, covering mechanical
+                    architecture, joint design, kinematic modeling, and prototyping.
                 </div>
             </div>
 
@@ -1264,8 +1319,18 @@
                 <h3>B.Tech Electronics and Communication Engineering</h3>
                 <div class="edu-school">Rajagiri School of Engineering and Technology, India</div>
                 <div class="edu-date">2015 &ndash; 2019</div>
+                <div class="edu-subjects">
+                    <span class="skill-tag">Electronics</span>
+                    <span class="skill-tag">Embedded Systems</span>
+                    <span class="skill-tag">Programming</span>
+                    <span class="skill-tag">Control Engineering</span>
+                </div>
                 <div class="edu-desc">
-                    <strong>Thesis:</strong> EMG-controlled prosthetic arm. Received Best Bachelor's Project Award.
+                    <strong>Thesis:</strong> Designed and developed an EMG-controlled prosthetic arm
+                    for lower-arm amputees, combining bio-mechatronic design, muscle-signal-based
+                    actuation, and functional prototyping. The project reduced cost by 70% compared
+                    to commercially available prosthetic hands and received the Best Bachelor's
+                    Project Award.
                 </div>
             </div>
         </section>
@@ -1462,6 +1527,7 @@
                 var autoTimer = null;
                 var autoDelay = 6000;
                 var isPaused = false;
+                var scrollingTo = -1; // tracks programmatic scroll target to prevent scroll handler desync
                 var progressStart = 0;
                 var progressFrame = null;
                 var carousel = document.getElementById('ide-carousel');
@@ -1478,6 +1544,8 @@
                     counter.textContent = (currentSlide + 1) + ' / ' + slides.length;
                     var pct = slides.length > 1 ? (currentSlide / (slides.length - 1)) * 100 : 100;
                     progressBar.style.width = pct + '%';
+                    // Clear ALL tree-file highlights first, then set active on current
+                    document.querySelectorAll('.tree-file.active').forEach(function(f) { f.classList.remove('active'); });
                     var files = document.querySelectorAll('.tree-folder[data-project="' + currentProject + '"] .tree-file');
                     files.forEach(function(f, i) { f.classList.toggle('active', i === currentSlide); });
                 }
@@ -1485,9 +1553,12 @@
                 function scrollToSlide(idx) {
                     var slides = getProjectSlides(currentProject);
                     if (slides[idx]) {
-                        slides[idx].scrollIntoView({ behavior: 'smooth' });
+                        scrollingTo = idx;
+                        carousel.scrollTo({ top: slides[idx].offsetTop, behavior: 'auto' });
                         currentSlide = idx;
                         updateUI();
+                        // Clear the guard after scroll animation settles
+                        setTimeout(function() { scrollingTo = -1; }, 600);
                     }
                 }
 
@@ -1505,6 +1576,7 @@
                         var slides = getProjectSlides(currentProject);
                         if (currentSlide < slides.length - 1) {
                             scrollToSlide(currentSlide + 1);
+                            startAuto(); // restart timer for next slide
                         } else {
                             var pi = projectOrder.indexOf(currentProject);
                             selectProject(projectOrder[(pi + 1) % projectOrder.length]);
@@ -1527,9 +1599,16 @@
                         if (header) { header.classList.toggle('active', isOpen); header.classList.toggle('open', isOpen); }
                     });
                     var slides = getProjectSlides(name);
-                    if (slides.length) slides[0].scrollIntoView({ behavior: 'smooth' });
+                    if (slides.length) {
+                        scrollingTo = 0;
+                        carousel.scrollTo({ top: slides[0].offsetTop, behavior: 'auto' });
+                        setTimeout(function() { scrollingTo = -1; }, 600);
+                    }
                     updateUI();
                     startAuto();
+                    // Scroll active tree file into view
+                    var activeFolder = document.querySelector('.tree-folder[data-project="' + name + '"]');
+                    if (activeFolder) { var af = activeFolder.querySelector('.tree-file.active'); if (af) af.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
                     if (window.innerWidth <= 768) {
                         var tree = document.getElementById('ide-tree');
                         var overlay = document.querySelector('.ide-tree-overlay');
@@ -1551,9 +1630,12 @@
                     }
                     currentSlide = slideIdx;
                     var slides = getProjectSlides(name);
-                    if (slides[slideIdx]) slides[slideIdx].scrollIntoView({ behavior: 'smooth' });
+                    if (slides[slideIdx]) carousel.scrollTo({ top: slides[slideIdx].offsetTop, behavior: 'auto' });
                     updateUI();
                     startAuto();
+                    // Scroll active tree file into view
+                    var activeFolder = document.querySelector('.tree-folder[data-project="' + name + '"]');
+                    if (activeFolder) { var af = activeFolder.querySelector('.tree-file.active'); if (af) af.scrollIntoView({ block: 'nearest', behavior: 'smooth' }); }
                 };
 
                 window.carouselNav = function(dir) {
@@ -1578,26 +1660,63 @@
                     if (overlay) overlay.classList.toggle('open');
                 };
 
-                // Track scroll to update currentSlide
+                // Track scroll to update currentSlide (and detect cross-project transitions)
                 var scrollTimeout = null;
                 carousel.addEventListener('scroll', function() {
                     clearTimeout(scrollTimeout);
                     scrollTimeout = setTimeout(function() {
-                        var slides = getProjectSlides(currentProject);
+                        // Skip if a programmatic scroll is in progress (prevents desync)
+                        if (scrollingTo >= 0) return;
+
                         var scrollTop = carousel.scrollTop;
                         var carouselH = carousel.clientHeight;
-                        var best = 0, bestOverlap = 0;
+
+                        // Find the globally most-visible slide across ALL projects
+                        var allSlides = carousel.querySelectorAll('.carousel-slide');
+                        var bestSlide = null, bestOverlap = 0;
+                        allSlides.forEach(function(s) {
+                            var top = s.offsetTop;
+                            var h = s.offsetHeight || carouselH;
+                            var oTop = Math.max(top, scrollTop);
+                            var oBot = Math.min(top + h, scrollTop + carouselH);
+                            var overlap = Math.max(0, oBot - oTop);
+                            if (overlap > bestOverlap) { bestOverlap = overlap; bestSlide = s; }
+                        });
+
+                        if (!bestSlide) return;
+
+                        var detectedProject = bestSlide.getAttribute('data-project');
+
+                        // If we scrolled into a different project, switch tree + folder
+                        if (detectedProject !== currentProject) {
+                            currentProject = detectedProject;
+                            document.querySelectorAll('.tree-folder').forEach(function(f) {
+                                var isOpen = f.getAttribute('data-project') === detectedProject;
+                                f.classList.toggle('open', isOpen);
+                                var header = f.querySelector('.tree-folder-header');
+                                if (header) { header.classList.toggle('active', isOpen); header.classList.toggle('open', isOpen); }
+                            });
+                        }
+
+                        // Now find which slide index within that project
+                        var slides = getProjectSlides(detectedProject);
+                        var best = 0, bestProjOverlap = 0;
                         for (var i = 0; i < slides.length; i++) {
                             var top = slides[i].offsetTop;
                             var h = slides[i].offsetHeight || carouselH;
                             var oTop = Math.max(top, scrollTop);
                             var oBot = Math.min(top + h, scrollTop + carouselH);
                             var overlap = Math.max(0, oBot - oTop);
-                            if (overlap > bestOverlap) { bestOverlap = overlap; best = i; }
+                            if (overlap > bestProjOverlap) { bestProjOverlap = overlap; best = i; }
                         }
-                        if (best !== currentSlide) {
+
+                        if (best !== currentSlide || detectedProject !== currentProject) {
                             currentSlide = best;
+                            currentProject = detectedProject;
                             updateUI();
+                            // Scroll the active tree file into view in the sidebar
+                            var activeFile = document.querySelector('.tree-folder[data-project="' + detectedProject + '"] .tree-file.active');
+                            if (activeFile) activeFile.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
                         }
                     }, 100);
                 }, { passive: true });
@@ -1731,67 +1850,83 @@
                     }
 
                     // ============================================================
-                    // Desktop: Pinned scrollytelling
+                    // Desktop: All layers visible, natural block scroll (no pinning)
                     // ============================================================
                     if (window.innerWidth >= 769) {
-                        var TAB_BAR_H = 44;
-                        var triggers = [];
-                        var triggerMap = {};
-
-                        storyGroups.forEach(function(group) {
-                            var wrapperEl = document.querySelector(group.wrapper);
-                            var groupEl = wrapperEl ? wrapperEl.querySelector('.story-group') : null;
-                            if (!wrapperEl || !groupEl) return;
-
-                            var layerEls = groupEl.querySelectorAll('.story-layer');
-                            var numLayers = layerEls.length;
-
-                            // Set initial state
-                            setLayerStates('story-' + group.id, 0);
-
-                            var st = ScrollTrigger.create({
-                                trigger: wrapperEl,
-                                start: 'top top+=' + TAB_BAR_H + 'px',
-                                end: '+=' + (numLayers * 130) + 'vh',
-                                pin: true,
-                                pinSpacing: true,
-                                scrub: 0.6,
-                                anticipatePin: 1,
-                                onUpdate: function(self) {
-                                    var p = self.progress;
-                                    if (p <= 0 || p >= 1) return;
-                                    var layerIdx = Math.min(Math.floor(p * numLayers), numLayers - 1);
-                                    setLayerStates('story-' + group.id, layerIdx);
-                                    updateStepIndicator(layerOffsets[group.id] + layerIdx);
-                                    setActiveTab(group.id);
-                                }
-                            });
-                            triggers.push({ id: group.id, st: st });
-                            triggerMap[group.id] = st;
+                        // Make all layers visible — they stack vertically as normal blocks
+                        document.querySelectorAll('.story-group .story-layer').forEach(function(l) {
+                            l.setAttribute('data-status', 'active');
+                            l.style.position = 'relative';
+                            l.style.opacity = '';
+                            l.style.filter = '';
+                            l.style.pointerEvents = 'auto';
+                        });
+                        document.querySelectorAll('.story-group').forEach(function(g) {
+                            g.style.display = 'block';
+                            g.style.minHeight = 'auto';
                         });
 
-                        // Tab click → smooth scroll to group
+                        // Update step indicator + active tab based on scroll position
+                        function updateStoriesFromScroll() {
+                            var currentIdx = -1;
+                            var currentGroupId = null;
+                            storyGroups.forEach(function(group) {
+                                var wrapper = document.querySelector(group.wrapper);
+                                if (!wrapper) return;
+                                var rect = wrapper.getBoundingClientRect();
+                                // If the wrapper's top is near the viewport, this group is active
+                                if (rect.top < window.innerHeight * 0.6 && rect.bottom > 44) {
+                                    currentGroupId = group.id;
+                                    // Determine which layer within this group
+                                    var layers = wrapper.querySelectorAll('.story-layer');
+                                    layers.forEach(function(layer, i) {
+                                        var lr = layer.getBoundingClientRect();
+                                        if (lr.top < window.innerHeight * 0.5 && lr.bottom > 44) {
+                                            currentIdx = layerOffsets[group.id] + i;
+                                        }
+                                    });
+                                }
+                            });
+                            if (currentIdx >= 0) {
+                                updateStepIndicator(currentIdx);
+                            }
+                            if (currentGroupId) {
+                                setActiveTab(currentGroupId);
+                            }
+                        }
+
+                        // Listen to scroll events (throttled)
+                        var scrollTicking = false;
+                        window.addEventListener('scroll', function() {
+                            if (!scrollTicking) {
+                                window.requestAnimationFrame(function() {
+                                    updateStoriesFromScroll();
+                                    scrollTicking = false;
+                                });
+                                scrollTicking = true;
+                            }
+                        });
+                        // Run once on init
+                        setTimeout(updateStoriesFromScroll, 300);
+
+                        // Tab click → simple scroll to wrapper
                         function scrollToTab(tabId) {
                             var wrapper = document.querySelector('#' + tabId + '-wrapper');
                             if (!wrapper) return;
-                            // Kill any running tweens so they don't fight
-                            gsap.killTweensOf(window);
-                            // Calculate absolute target: wrapper's viewport offset + current scroll - tab bar
-                            var rect = wrapper.getBoundingClientRect();
-                            var currentScroll = window.pageYOffset || window.scrollY;
-                            var targetY = Math.round(rect.top + currentScroll - TAB_BAR_H);
-                            // Instant scroll, then refresh ScrollTrigger
-                            window.scrollTo(0, targetY);
+                            wrapper.scrollIntoView({ behavior: 'smooth' });
                             setActiveTab(tabId);
-                            requestAnimationFrame(function() {
-                                ScrollTrigger.refresh(true);
-                            });
                         }
                         document.querySelectorAll('.stories-tab').forEach(function(tab) {
                             tab.addEventListener('click', function onClick() {
                                 scrollToTab(this.getAttribute('data-tab'));
                             });
                         });
+
+                        // Remove any existing ScrollTrigger instances and pin spacers
+                        if (typeof ScrollTrigger !== 'undefined') {
+                            ScrollTrigger.getAll().forEach(function(st) { st.kill(); });
+                        }
+                        document.querySelectorAll('.pin-spacer').forEach(function(s) { s.remove(); });
                     } else {
                         // ============================================================
                         // Mobile: Tab toggles, no pinning
