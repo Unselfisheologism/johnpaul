@@ -46,6 +46,7 @@
                 --text-meta: rgba(255, 255, 255, 0.25);
                 --blue: #0000ee;
                 --orange: #0000ee;
+                --yellow: #ffd700;
                 --red: #e61919;
                 --border: rgba(255, 255, 255, 0.06);
                 --border-strong: rgba(255, 255, 255, 0.12);
@@ -109,18 +110,18 @@
                 padding: 14px 28px;
                 background: repeating-linear-gradient(
                     -45deg,
-                    #fff,
-                    #fff 8px,
+                    var(--yellow),
+                    var(--yellow) 8px,
                     #111 8px,
                     #111 16px
                 );
-                color: #fff;
+                color: #000;
                 font-family: var(--font-mono);
                 font-size: 11px;
                 font-weight: 700;
                 text-transform: uppercase;
                 letter-spacing: 0.1em;
-                border: 2px solid #fff;
+                border: 2px solid var(--yellow);
                 cursor: pointer;
                 transition: transform 120ms;
                 text-decoration: none;
@@ -129,9 +130,9 @@
                 transform: scale(0.98);
             }
             .btn-hazard .btn-label {
-                background: #fff;
+                background: #000;
                 padding: 6px 14px;
-                color: #000;
+                color: var(--yellow);
                 font-weight: 800;
             }
             .btn-outline {
@@ -169,8 +170,8 @@
                 width: 100%;
                 background: repeating-linear-gradient(
                     90deg,
-                    #fff,
-                    #fff 8px,
+                    var(--yellow),
+                    var(--yellow) 8px,
                     #111 8px,
                     #111 16px
                 );
@@ -399,7 +400,7 @@
                 font-family: var(--font-mono);
                 font-size: 12px;
                 font-weight: 600;
-                color: var(--blue);
+                color: #000;
                 text-transform: uppercase;
                 letter-spacing: 0.15em;
                 margin-bottom: 20px;
@@ -1194,7 +1195,7 @@
                 font-family: var(--font-mono);
                 font-size: 9px;
                 font-weight: 600;
-                color: var(--blue);
+                color: #000;
                 text-transform: uppercase;
                 letter-spacing: 0.15em;
                 margin: 16px 0 8px;
@@ -1219,7 +1220,7 @@
                 content: "—";
                 position: absolute;
                 left: 0;
-                color: var(--blue);
+                color: #000;
             }
             .carousel-slide .slide-text .tags {
                 display: flex;
@@ -1272,7 +1273,7 @@
             }
             .carousel-progress-bar {
                 height: 100%;
-                background: var(--blue);
+                background: #000;
                 width: 0;
                 transition: width 0.3s linear;
             }
@@ -2034,14 +2035,14 @@
                 background: rgba(255, 255, 255, 0.04);
             }
             .stories-tab.active {
-                color: var(--text-body);
+                color: var(--yellow);
                 background: var(--bg);
                 border-bottom-color: var(--bg);
                 z-index: 2;
             }
             .stories-tab.active .tab-dot {
-                background: #fff;
-                border-color: #fff;
+                background: var(--yellow);
+                border-color: var(--yellow);
             }
             .tab-dot {
                 width: 6px;
