@@ -87,8 +87,11 @@
             @media(max-width:640px){.ds-arrows{display:none}.download-strip{height:50px}.ds-center{font-size:10px;padding:8px 18px}.ds-center svg{width:22px;height:22px}}
 
             section{padding:48px 48px 64px;width:100%}
-            .section-header{margin-bottom:20px}
+            .section-header{margin-bottom:20px;display:flex;align-items:flex-start;justify-content:space-between;gap:24px}
+            .section-header .section-header-text{min-width:0}
             .section-header h2{font-family:var(--font-display);font-size:40px;font-weight:400;text-transform:uppercase;letter-spacing:-2px;color:var(--text-heading);margin:0}
+            .section-header-vid{width:160px;height:auto;flex-shrink:0;border:1px solid var(--border);border-radius:4px;pointer-events:none;user-select:none;transform:translateY(-6px)}
+            @media(max-width:768px){.section-header-vid{display:none}}
             .section-subtitle{font-family:var(--font-body);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.2em;margin-top:8px}
             .section-marker{display:flex;align-items:center;gap:12px;margin-bottom:32px}
             .section-marker .marker-prefix{font-family:var(--font-mono);font-size:10px;font-weight:600;color:#fff;letter-spacing:0.15em;text-transform:uppercase}
@@ -1292,14 +1295,19 @@
         <!-- EDUCATION -->
         <section class="section" id="education">
             <div class="section-header">
-                <h2>Education</h2>
-                <div class="section-subtitle">Academic Foundation</div>
+                <div class="section-header-text">
+                    <h2>Education</h2>
+                    <div class="section-subtitle">Academic Foundation</div>
+                </div>
+                <video class="section-header-vid" src="ascii-animation.mp4" autoplay muted loop playsinline></video>
             </div>
             <div class="section-marker">
                 <span class="marker-prefix">/// ACADEMIC FOUNDATION</span>
                 <span class="marker-line"></span>
                 <span class="marker-code">2 DEGREES // GERMANY + INDIA</span>
             </div>
+
+
 
             <div class="edu-card">
                 <h3>M.Eng. Mechatronics and Cyber-Physical Systems</h3>
@@ -1343,8 +1351,11 @@
         <!-- SKILLS -->
         <section class="section" id="skills">
             <div class="section-header">
-                <h2>Skills</h2>
-                <div class="section-subtitle">Technical Skills</div>
+                <div class="section-header-text">
+                    <h2>Skills</h2>
+                    <div class="section-subtitle">Technical Skills</div>
+                </div>
+                <video class="section-header-vid" src="ascii-animation-skills.mp4" autoplay muted loop playsinline></video>
             </div>
             <div class="section-marker">
                 <span class="marker-prefix">/// TECHNICAL SKILLS</span>
@@ -1394,8 +1405,11 @@
         <!-- ACHIEVEMENTS -->
         <section class="section" id="achievements">
             <div class="section-header">
-                <h2>Achievements</h2>
-                <div class="section-subtitle">Awards &amp; Recognition</div>
+                <div class="section-header-text">
+                    <h2>Achievements</h2>
+                    <div class="section-subtitle">Awards &amp; Recognition</div>
+                </div>
+                <video class="section-header-vid" src="ascii-animation-achievements.mp4" autoplay muted loop playsinline></video>
             </div>
             <div class="section-marker">
                 <span class="marker-prefix">/// AWARDS &amp; RECOGNITION</span>
@@ -1463,7 +1477,7 @@
                     engineering mindset by keeping me creative, balanced, and connected with people beyond
                     the world of technology.
                 </p>
-                <img src="HIJE_1EW8AACAdz.jpg" alt="John Paul performing music" />
+                <img src="singing-photo-D9yeFAvY.jpeg" alt="John Paul performing music" />
             </div>
         </section>
 
